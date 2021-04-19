@@ -68,7 +68,7 @@
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>${dept.id}</td>
+            <td>${stat.count}</td>
             <td>${dept.title }</td>
             <td>${dept.content }</td>
             <td>${dept.create_date }</td>
