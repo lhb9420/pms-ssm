@@ -27,8 +27,6 @@ public class RainServiceImpl implements RainService {
     @Autowired
     private NoticeDao noticedao;
     @Autowired
-    private DocumentDao documentdao;
-    @Autowired
     private UserDao userdao;
 
     /**
@@ -233,50 +231,6 @@ public class RainServiceImpl implements RainService {
     public void delete_NoticeInfo(Integer id) {
         // TODO Auto-generated method stub
         noticedao.delete_Info(id);
-    }
-
-    /**
-     * 文档管理
-     */
-    @Override
-    public List<Document> get_DocumentList() {
-        // TODO Auto-generated method stub
-        return documentdao.get_List();
-    }
-
-    @Override
-    public List<Document> get_DocumentLikeList(String content) {
-        // TODO Auto-generated method stub
-        return documentdao.get_LikeList(content);
-    }
-
-    @Override
-    public Document get_DocumentInfo(Integer id) {
-        // TODO Auto-generated method stub
-        return documentdao.get_Info(id);
-    }
-
-    @Override
-    public void update_DocumentInfo(Document notice) {
-        // TODO Auto-generated method stub
-        documentdao.update_Info(notice);
-    }
-
-    @Override
-    public void insert_DocumentInfo(Document notice) {
-        // TODO Auto-generated method stub
-//		Date date = new Date();    
-//		String year = String.format("%tY", date);   
-//		String month = String.format("%tB", date);   
-//		String day = String.format("%te", date);   
-//		notice.setCreate_date(year+month+day);
-        documentdao.insert_Info(notice);
-    }
-
-    @Override
-    public void delete_DocumentInfo(Integer id) {
-        // TODO Auto-generated method stub
-        documentdao.delete_Info(id);
     }
 
     @Override

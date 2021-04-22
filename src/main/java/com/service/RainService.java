@@ -70,18 +70,6 @@ public interface RainService {
 
     void delete_NoticeInfo(Integer id);
 
-    List<Document> get_DocumentList();
-
-    List<Document> get_DocumentLikeList(String content);
-
-    Document get_DocumentInfo(Integer id);
-
-    void update_DocumentInfo(Document notice);
-
-    void insert_DocumentInfo(Document notice);
-
-    void delete_DocumentInfo(Integer id);
-
     User login(String loginname, String password);
 
     List<User> get_UserList();

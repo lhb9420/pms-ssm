@@ -157,7 +157,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href=" ">
+                        <a _href="${ctx }/salary/list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>工资信息</cite>
                         </a>
@@ -172,7 +172,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href=" ">
+                        <a _href="">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>请假申请</cite>
                         </a>

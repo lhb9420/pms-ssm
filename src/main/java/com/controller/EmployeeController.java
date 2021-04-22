@@ -56,7 +56,6 @@ public class EmployeeController {
 		}
 		@RequestMapping(value="/employee/add",method=RequestMethod.POST)
 		 public ModelAndView add(ModelAndView mv,@ModelAttribute Employee job ,Integer id){
-//			System.out.println(id);
 			if(id!=null){
 				rainservice.update_EmployeeInfo(job);
 			}else{

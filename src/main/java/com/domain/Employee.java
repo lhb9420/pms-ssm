@@ -41,7 +41,17 @@ public class Employee implements java.io.Serializable {
     private String hobby;
     private String remark;
     private String create_date;
+    private String login_name;
     private String password;
+
+    public String getLogin_name() {
+        return login_name;
+    }
+
+    public void setLogin_name(String login_name) {
+        this.login_name = login_name;
+    }
+
 
     public String getPassword() {
         return password;
