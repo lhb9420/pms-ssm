@@ -2,7 +2,7 @@ package com.domain;
 
 import java.io.Serializable;
 
-public class leave implements Serializable {
+public class Leave implements Serializable {
     private Integer leave_id;
     private Integer employee_id;
     private String name;
@@ -11,7 +11,7 @@ public class leave implements Serializable {
     private boolean enable;
     private String create_date;
 
-    public leave() {
+    public Leave() {
         super();
     }
 

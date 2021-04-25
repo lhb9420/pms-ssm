@@ -2,7 +2,7 @@ package com.domain;
 
 import java.io.Serializable;
 
-public class attendance implements Serializable {
+public class Attendance implements Serializable {
     private Integer attendance_id;
     private Integer employee_id;
     private String name;
@@ -12,7 +12,7 @@ public class attendance implements Serializable {
     private String record4;
     private String create_date;
 
-    public attendance() {
+    public Attendance() {
         super();
     }
 

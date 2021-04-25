@@ -121,7 +121,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href=" ">
+                        <a _href="${ctx }/attendance/list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>历史考勤</cite>
                         </a>
@@ -136,15 +136,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href=" ">
+                        <a _href="${ctx }/overtime/list">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>今日加班</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href=" ">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>历史加班</cite>
+                            <cite>加班信息</cite>
                         </a>
                     </li>
                 </ul>
@@ -156,6 +150,12 @@
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
+                    <li>
+                        <a _href="">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>工资核算</cite>
+                        </a>
+                    </li>
                     <li>
                         <a _href="${ctx }/salary/list">
                             <i class="iconfont">&#xe6a7;</i>
@@ -174,13 +174,13 @@
                     <li>
                         <a _href="">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>请假申请</cite>
+                            <cite>申请请假</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href=" ">
+                        <a _href="${ctx }/leave/list">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>申请审核</cite>
+                            <cite>请假管理</cite>
                         </a>
                     </li>
                 </ul>

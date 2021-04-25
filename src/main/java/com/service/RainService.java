@@ -84,4 +84,19 @@ public interface RainService {
 
     void delete_UserInfo(Integer id);
 
+    List<Salary> get_SalaryList();
+
+    List<Salary> get_SalaryLikeList(String content);
+
+    List<Leave> get_LeaveList();
+
+    List<Leave> get_LeaveLikeList(String content);
+
+    List<Overtime> get_OvertimeList();
+
+    List<Overtime> get_OvertimeLikeList(String content);
+
+    List<Attendance> get_AttendanceList();
+
+    List<Attendance> get_AttenanceLikeList(String content);
 }

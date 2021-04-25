@@ -2,7 +2,7 @@ package com.domain;
 
 import java.io.Serializable;
 
-public class overtime implements Serializable {
+public class Overtime implements Serializable {
     private Integer overtime_id;
     private Integer employee_id;
     private String name;
@@ -10,7 +10,7 @@ public class overtime implements Serializable {
     private String record2;
     private String create_date;
 
-    public overtime() {
+    public Overtime() {
         super();
     }
 

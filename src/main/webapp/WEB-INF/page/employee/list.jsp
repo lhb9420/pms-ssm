@@ -101,14 +101,10 @@
                 <c:choose>
                     <c:when test="${sessionScope.tip  == 1 }">
                         <td class="td-manage">
-                            <!--  <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                               <i class="layui-icon">&#xe601;</i>
-                             </a> -->
-                                <%-- <a title="编辑"  onclick="x_admin_show('编辑','${ctx}/job/add?id=${dept.id }');" href="javascript:;"> --%>
                             <a title="编辑" href="${ctx}/employee/add?id=${dept.id }">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="删除" onclick="member_del(this,'${dept.id }')" href="javascript:;">
+                            <a title="删除" onclick="member_del(this,'${dept.id }')" href="javascript:">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
                         </td>
@@ -123,16 +119,6 @@
 
         </tbody>
     </table>
-    <!--  <div class="page">
-       <div>
-         <a class="prev" href="">&lt;&lt;</a>
-         <a class="num" href="">1</a>
-         <span class="current">2</span>
-         <a class="num" href="">3</a>
-         <a class="num" href="">489</a>
-         <a class="next" href="">&gt;&gt;</a>
-       </div>
-     </div> -->
 
 </div>
 <script>

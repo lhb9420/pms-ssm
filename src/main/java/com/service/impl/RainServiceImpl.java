@@ -28,6 +28,14 @@ public class RainServiceImpl implements RainService {
     private NoticeDao noticedao;
     @Autowired
     private UserDao userdao;
+    @Autowired
+    private SalaryDao salaryDao;
+    @Autowired
+    private LeaveDao leaveDao;
+    @Autowired
+    private OvertimeDao overtimeDao;
+    @Autowired
+    private AttendanceDao attendanceDao;
 
     /**
      * 部门信息的管理
@@ -285,5 +293,109 @@ public class RainServiceImpl implements RainService {
     public Employee login2(String loginname, String password) {
         // TODO Auto-generated method stub
         return employeedao.get_ByInfo(loginname, password);
+    }
+
+    //工资信息
+    @Override
+    public List<Salary> get_SalaryList() {
+        // TODO Auto-generated method stub
+        /**
+         * 将工资中的信息提取出来
+         */
+        List<Salary> list = salaryDao.get_List();
+        int size = list.size();
+        List<Salary> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Salary data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+
+    @Override
+    public List<Salary> get_SalaryLikeList(String content) {
+        List<Salary> list = salaryDao.get_LikeList(content);
+        int size = list.size();
+        List<Salary> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Salary data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+
+    //请假信息
+    @Override
+    public List<Leave> get_LeaveList() {
+        List<Leave> list = leaveDao.get_List();
+        int size = list.size();
+        List<Leave> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Leave data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+
+    @Override
+    public List<Leave> get_LeaveLikeList(String content) {
+        List<Leave> list = leaveDao.get_LikeList(content);
+        int size = list.size();
+        List<Leave> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Leave data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+
+    //加班信息
+    @Override
+    public List<Overtime> get_OvertimeList() {
+        List<Overtime> list = overtimeDao.get_List();
+        int size = list.size();
+        List<Overtime> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Overtime data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+
+    @Override
+    public List<Overtime> get_OvertimeLikeList(String content) {
+        List<Overtime> list = overtimeDao.get_LikeList(content);
+        int size = list.size();
+        List<Overtime> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Overtime data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+    //考勤信息
+
+    @Override
+    public List<Attendance> get_AttendanceList() {
+        List<Attendance> list = attendanceDao.get_List();
+        int size = list.size();
+        List<Attendance> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Attendance data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
+    }
+
+    @Override
+    public List<Attendance> get_AttenanceLikeList(String content) {
+        List<Attendance> list = attendanceDao.get_LikeList(content);
+        int size = list.size();
+        List<Attendance> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Attendance data = list.get(i);
+            list2.add(i, data);
+        }
+        return list2;
     }
 }

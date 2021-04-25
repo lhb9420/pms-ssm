@@ -2,7 +2,7 @@ package com.domain;
 
 import java.io.Serializable;
 
-public class salary implements Serializable {
+public class Salary implements Serializable {
     private Integer salary_id;
     private Integer employee_id;
     private String name;
@@ -12,7 +12,7 @@ public class salary implements Serializable {
     private Integer bonus;
     private Integer total;
 
-    public salary() {
+    public Salary() {
         super();
     }
 

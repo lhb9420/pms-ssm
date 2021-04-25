@@ -4,6 +4,28 @@ public class Employee implements java.io.Serializable {
     private Integer id;
     private Integer job_id;
     private Integer dept_id;
+    private Dept dept;
+    private Job job;
+    private String name;
+    private String card_id;
+    private String address;
+    private String post_code;
+    private String tel;
+    private String phone;
+    private String qq_num;
+    private String email;
+    private Integer sex;
+    private String party;
+    private String birthday;
+    private String race;
+    private String education;
+    private String speciality;
+    private String hobby;
+    private String remark;
+    private String create_date;
+    private String login_name;
+    private String password;
+
 
     public Integer getJob_id() {
         return job_id;
@@ -20,30 +42,6 @@ public class Employee implements java.io.Serializable {
     public void setDept_id(Integer dept_id) {
         this.dept_id = dept_id;
     }
-
-    private Dept dept;
-    private Job job;
-    private String name;
-    private String card_id;
-    private String address;
-    private String post_code;
-    private String tel;
-    private String phone;
-    private String qq_num;
-    private String email;
-    private Integer sex;
-    private String party;
-
-    private String birthday;
-    private String race;
-    private String education;
-    private String speciality;
-    private String hobby;
-    private String remark;
-    private String create_date;
-    private String login_name;
-    private String password;
-
     public String getLogin_name() {
         return login_name;
     }

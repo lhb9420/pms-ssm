@@ -7,7 +7,10 @@ public class Constants {
 		public static final String JOBTABLE = "job_inf";
 		public static final String EMPLOYEETABLE = "employee_inf";
 		public static final String NOTICETABLE = "notice_inf";
-		public static final String DOCUMENTTABLE = "document_inf";
+		public static final String SALARYTABLE= "salary_inf";
+		public static final String LEAVETABLE= "leave_inf";
+		public static final String ATTENDENCETABLE= "attendance_inf";
+		public static final String OVERTIMETABLE= "overtime_inf";
 		
 		// 登录
 		public static final String LOGIN = "loginForm";

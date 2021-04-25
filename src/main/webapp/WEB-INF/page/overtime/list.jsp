@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>员工列表</title>
+    <title>加班信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -28,22 +28,20 @@
       <span class="layui-breadcrumb">
         <a href="">首页</a>
         <a>
-          <cite>工资信息</cite></a>
+          <cite>加班信息</cite></a>
       </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       href="${ctx }/salary/list" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
     <div class="layui-row" style="" align="center">
-        <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/salary/list">
+        <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/overtime/list">
             <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
             <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
-            <input type="text" name="content" style="width:50%;" placeholder="请输入查找员工姓名" autocomplete="off"
+            <input type="text" name="content" style="width:50%;" placeholder="请输入查找标题" autocomplete="off"
                    class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
+
 
     <table class="layui-table">
         <thead>
@@ -54,48 +52,33 @@
             </th>
             <th>ID</th>
             <th>姓名</th>
-            <th>月份</th>
-            <th>基本工资</th>
-            <th>加班工资</th>
-            <th>奖金</th>
-            <th>总额</th>
+            <th>上班打卡时间</th>
+            <th>下班打卡时间</th>
             <th>操作</th>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.list}" var="salary" varStatus="stat">
+        <c:forEach items="${requestScope.list}" var="overtime" varStatus="stat">
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
                             class="layui-icon">&#xe605;</i></div>
                 </td>
-                <td>${stat.count }</td>
-                <td>${salary.name }</td>
-                <td>${salary.month }</td>
-                <td>${salary.base_salary }</td>
-                <td>${salary.overtime_salary }</td>
-                <td>${salary.bonus }</td>
-                <td>${salary.total }</td>
-
+                <td>${stat.count}</td>
+                <td>${overtime.name }</td>
+                <td>${overtime.record1 }</td>
+                <td>${overtime.record2 }</td>
                 <c:choose>
                     <c:when test="${sessionScope.tip  == 1 }">
                         <td class="td-manage">
-                            <!--  <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                               <i class="layui-icon">&#xe601;</i>
-                             </a> -->
-                                <%-- <a title="编辑"  onclick="x_admin_show('编辑','${ctx}/job/add?id=${dept.id }');" href="javascript:;"> --%>
-                            <a title="编辑" href="${ctx}/employee/add?id=${salary.salary_id }">
+
+                            <a title="编辑" href="${ctx}/notice/add?id=${overtime.overtime_id }">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
                         </td>
                     </c:when>
-
                 </c:choose>
-
             </tr>
-
         </c:forEach>
-
-
         </tbody>
     </table>
 
