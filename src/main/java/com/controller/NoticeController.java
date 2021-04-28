@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.domain.Notice;
+import com.domain.User;
 import com.service.RainService;
+import com.util.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -33,24 +36,26 @@ public class NoticeController {
 		}
 		@RequestMapping(value="/notice/list",method=RequestMethod.GET)
 		 public String index(Model model,String content){
-			List<Notice> job_list = rainservice.get_NoticeList();
+			List<Notice> notict_list = rainservice.get_NoticeList();
 			if (content!=null){
-				job_list = rainservice.get_NoticeLikeList(content);
+				notict_list = rainservice.get_NoticeLikeList(content);
 			}
-			model.addAttribute("list",job_list);
+			model.addAttribute("list",notict_list);
 			return "notice/list";
 		}
 		@RequestMapping(value="/notice/add",method=RequestMethod.GET)
 		 public String add(Model model,Integer id){
 			if(id!=null){
-				Notice job = rainservice.get_NoticeInfo(id);
-				model.addAttribute("job",job);
+				Notice notice = rainservice.get_NoticeInfo(id);
+				model.addAttribute("notice",notice);
 			}
 			return "/notice/add";
 		}
 		@RequestMapping(value="/notice/add",method=RequestMethod.POST)
-		 public ModelAndView add(ModelAndView mv,@ModelAttribute Notice notice ,Integer id){
-			System.out.println(id);
+		 public ModelAndView add(ModelAndView mv, @ModelAttribute Notice notice , Integer id, HttpSession session){
+			User user = (User) session.getAttribute(Constants.USER_SESSION);
+			notice.setUser_id(user.getId());
+			notice.setName(user.getUsername());
 			if(id!=null){
 				rainservice.update_NoticeInfo(notice);
 			}else{
@@ -61,7 +66,6 @@ public class NoticeController {
 		}
 		@RequestMapping(value="/notice/delete",method=RequestMethod.GET)
 		 public void delete(Integer id){
-			System.out.println(id);
 			if(id!=null){
 				rainservice.delete_NoticeInfo(id);
 			}

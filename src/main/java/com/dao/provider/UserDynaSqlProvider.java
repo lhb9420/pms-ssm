@@ -44,9 +44,6 @@ public class UserDynaSqlProvider {
 						if(job.getUsername()!=null){
 							SET("username = #{username}");
 						}
-				
-						
-						
 						WHERE(" id = #{id} ");
 					}
 				}.toString();

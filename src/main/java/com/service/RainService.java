@@ -99,4 +99,8 @@ public interface RainService {
     List<Attendance> get_AttendanceList();
 
     List<Attendance> get_AttenanceLikeList(String content);
+
+    void enable_Leave(Integer leave_id);
+
+    void insert_leave(Leave leave);
 }

@@ -7,47 +7,51 @@ import static com.util.common.Constants.NOTICETABLE;
 
 public class NoticeDynaSqlProvider {
 			// 动态插入
-			public String insert_Notice(final Notice job){
+			public String insert_Notice(final Notice notice){
 				
 				return new SQL(){
 					{
 						INSERT_INTO(NOTICETABLE);
-						if(job.getTitle() != null ){
+						if(notice.getTitle() != null ){
 							VALUES("title", "#{title}");
 						}
-						if(job.getUser_id()!=null){
+						if(notice.getUser_id()!=null){
 							VALUES("user_id","#{user_id}");
 						}
-						if(job.getContent()!=null){
+						if(notice.getContent()!=null){
 							VALUES("content","#{content}");
 						}
-						if(job.getCreate_date()!=null){
+						if(notice.getCreate_date()!=null){
 							VALUES("create_date","#{create_date}");
 						}
-					
+						if (notice.getName()!=null){
+							VALUES("name","#{name}");
+						}
 						
 					}
 				}.toString();
 			}	
 			// 动态更新
-			public String update_Notice(final Notice job){
+			public String update_Notice(final Notice notice){
 				
 				return new SQL(){
 					{
 						UPDATE(NOTICETABLE);
-						if(job.getTitle() != null ){
+						if(notice.getTitle() != null ){
 							SET("title = #{title}");
 						}
-						if(job.getUser_id()!=null){
+						if(notice.getUser_id()!=null){
 							SET("user_id = #{user_id}");
 						}
-						if(job.getContent()!=null){
+						if(notice.getContent()!=null){
 							SET("content = #{content}");
 						}
-						if(job.getCreate_date()!=null){
+						if(notice.getCreate_date()!=null){
 							SET("create_date = #{create_date}");
 						}
-				
+						if (notice.getName()!=null){
+							SET("name = #{name}");
+						}
 						
 						
 						WHERE(" id = #{id} ");

@@ -227,11 +227,6 @@ public class RainServiceImpl implements RainService {
     @Override
     public void insert_NoticeInfo(Notice notice) {
         // TODO Auto-generated method stub
-//		Date date = new Date();    
-//		String year = String.format("%tY", date);   
-//		String month = String.format("%tB", date);   
-//		String day = String.format("%te", date);   
-//		notice.setCreate_date(year+month+day);
         noticedao.insert_Info(notice);
     }
 
@@ -397,5 +392,15 @@ public class RainServiceImpl implements RainService {
             list2.add(i, data);
         }
         return list2;
+    }
+
+    @Override
+    public void enable_Leave(Integer leave_id) {
+        leaveDao.enable(leave_id);
+    }
+
+    @Override
+    public void insert_leave(Leave leave) {
+        leaveDao.insert(leave);
     }
 }

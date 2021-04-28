@@ -68,16 +68,16 @@
             <th>操作</th>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.list}" var="dept" varStatus="stat">
+        <c:forEach items="${requestScope.list}" var="notice" varStatus="stat">
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
                             class="layui-icon">&#xe605;</i></div>
                 </td>
                 <td>${stat.count}</td>
-                <td>${dept.loginname }</td>
-                <td>${dept.username }</td>
-                <td>${dept.create_date }</td>
+                <td>${notice.loginname }</td>
+                <td>${notice.username }</td>
+                <td>${notice.create_date }</td>
 
                 <!--  <td class="td-status">
                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td> -->
@@ -86,10 +86,10 @@
                        <i class="layui-icon">&#xe601;</i>
                      </a> -->
                         <%-- <a title="编辑"  onclick="x_admin_show('编辑','${ctx}/job/add?id=${dept.id }');" href="javascript:;"> --%>
-                    <a title="编辑" href="${ctx}/notice/add?id=${dept.id }">
+                    <a title="编辑" href="${ctx}/notice/add?id=${notice.id }">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" onclick="member_del(this,'${dept.id }')" href="javascript:;">
+                    <a title="删除" onclick="member_del(this,'${notice.id }')" href="javascript:">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
                 </td>

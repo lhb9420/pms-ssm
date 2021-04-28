@@ -27,30 +27,26 @@
       <span class="layui-breadcrumb">
         <a href="">首页</a>
         <a>
-          <cite>添加公告</cite></a>
+          <cite>申请请假</cite></a>
       </span>
   </div>
     <div class="x-body">
-        <form class="layui-form" method="POST" id="deptForm"  action="${ctx}/notice/add">
-        <input type="hidden" name="id" id="id" value="${notice.id }" >
+        <form class="layui-form" method="POST" id="deptForm"  action="${ctx}/leave/add">
+
           <div class="layui-form-item">
               <label for="username" class="layui-form-label">
-                  <span class="x-red">*</span>标题
+                  <span class="x-red">*</span>请假时间
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="title" name="title" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input" value="${notice.title }">
+                  <input type="date" id="date" name="leave_date" value="${leave.leave_date }" />
               </div>
-
           </div>
-        
           <div class="layui-form-item layui-form-text">
                     <label for="desc" class="layui-form-label">
-                     <span class="x-red">*</span> 内容
+                     <span class="x-red">*</span> 原因
                     </label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="content" name="content"
-                                  class="layui-textarea">${notice.content }</textarea>
+                        <textarea placeholder="请输入内容" id="content" name="reason" class="layui-textarea">${leave.reason }</textarea>
                     </div>
                 </div>
           <div class="layui-form-item">
@@ -61,7 +57,18 @@
           </div>
       </form>
     </div>
-    
+    <script>
+        //默认为当前时间
+        var now = new Date();
+        //格式化日，如果小于9，前面补0
+        var day = ("0" + now.getDate()).slice(-2);
+        //格式化月，如果小于9，前面补0
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        //拼装完整日期格式
+        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        document.getElementById("date").value=(today);
+        //or  $("#date").val(today);
+    </script>
   </body>
 
 </html>

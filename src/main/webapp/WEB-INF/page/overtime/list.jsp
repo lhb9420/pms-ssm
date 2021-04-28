@@ -54,7 +54,6 @@
             <th>姓名</th>
             <th>上班打卡时间</th>
             <th>下班打卡时间</th>
-            <th>操作</th>
         </thead>
         <tbody>
         <c:forEach items="${requestScope.list}" var="overtime" varStatus="stat">
@@ -67,16 +66,6 @@
                 <td>${overtime.name }</td>
                 <td>${overtime.record1 }</td>
                 <td>${overtime.record2 }</td>
-                <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
-                        <td class="td-manage">
-
-                            <a title="编辑" href="${ctx}/notice/add?id=${overtime.overtime_id }">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                        </td>
-                    </c:when>
-                </c:choose>
             </tr>
         </c:forEach>
         </tbody>

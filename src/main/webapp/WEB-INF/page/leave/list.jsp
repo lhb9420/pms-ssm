@@ -60,7 +60,7 @@
             </th>
             <th>ID</th>
             <th>姓名</th>
-            <th>标题</th>
+            <th>请假时间</th>
             <th>原因</th>
             <th>申请时间</th>
             <th>申请状态</th>
@@ -75,24 +75,33 @@
                 </td>
                 <td>${stat.count}</td>
                 <td>${leave.name }</td>
-                <td>${leave.title }</td>
-                <td>${leave.content }</td>
+                <td>${leave.leave_date }</td>
+                <td>${leave.reason }</td>
                 <td>${leave.create_date }</td>
                 <td>
                     <c:choose>
                         <c:when test="${leave.enable == true }">审核通过</c:when>
                         <c:otherwise>暂未审核</c:otherwise>
                     </c:choose>
-
                 </td>
                 <c:choose>
                     <c:when test="${sessionScope.tip  == 1 }">
-                        <td class="td-manage">
-
-                            <a title="编辑" href="${ctx}/notice/add?id=${leave.leave_id }">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                        </td>
+                        <c:choose>
+                            <c:when test="${leave.enable == false }">
+                                <td class="td-manage">
+                                    <a title="通过申请" onclick="leave_del(this,'${leave.leave_id }')" href="javascript:">
+                                        <i class="layui-icon">&#xe607;</i>
+                                    </a>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="td-manage">
+                                    <a title="已审核">
+                                        <i class="layui-icon">&#xe672;</i>
+                                    </a>
+                                </td>
+                            </c:otherwise>
+                        </c:choose>
                     </c:when>
                 </c:choose>
             </tr>
@@ -101,7 +110,18 @@
     </table>
 
 </div>
-<script>var _hmt = _hmt || [];
+<script>
+    function leave_del(obj, leave_id) {
+        layer.confirm('确认要通过申请吗？', function (index) {
+            //发异步删除数据
+            //等以后再使用异步，这里先使用
+            $.get("${ctx}/leave/enable?leave_id=" + leave_id);
+            layer.msg('已通过!', {icon: 1, time: 1000});
+            location.reload();
+        });
+    }
+</script>
+<script> var _hmt = _hmt || [];
 (function () {
     var hm = document.createElement("script");
     hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";

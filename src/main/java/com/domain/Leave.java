@@ -6,8 +6,8 @@ public class Leave implements Serializable {
     private Integer leave_id;
     private Integer employee_id;
     private String name;
-    private String title;
-    private String content;
+    private String leave_date;
+    private String reason;
     private boolean enable;
     private String create_date;
 
@@ -39,20 +39,20 @@ public class Leave implements Serializable {
         this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getLeave_date() {
+        return leave_date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setLeave_date(String leave_date) {
+        this.leave_date = leave_date;
     }
 
-    public String getContent() {
-        return content;
+    public String getReason() {
+        return reason;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public boolean isEnable() {

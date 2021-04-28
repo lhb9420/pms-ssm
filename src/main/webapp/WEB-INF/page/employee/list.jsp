@@ -72,28 +72,28 @@
             <th>操作</th>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.list}" var="dept" varStatus="stat">
+        <c:forEach items="${requestScope.list}" var="notice" varStatus="stat">
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
                             class="layui-icon">&#xe605;</i></div>
                 </td>
-                <td>${dept.name }</td>
+                <td>${notice.name }</td>
                 <td>
                     <c:choose>
-                        <c:when test="${dept.sex == 1 }">男</c:when>
+                        <c:when test="${notice.sex == 1 }">男</c:when>
                         <c:otherwise>女</c:otherwise>
                     </c:choose>
 
                 </td>
-                <td>${dept.phone }</td>
-                <td>${dept.email }</td>
-                <td>${dept.job.name }</td>
-                <td>${dept.education }</td>
-                <td>${dept.card_id }</td>
-                <td>${dept.dept.name }</td>
-                <td>${dept.address }</td>
-                <td>${dept.create_date }</td>
+                <td>${notice.phone }</td>
+                <td>${notice.email }</td>
+                <td>${notice.job.name }</td>
+                <td>${notice.education }</td>
+                <td>${notice.card_id }</td>
+                <td>${notice.dept.name }</td>
+                <td>${notice.address }</td>
+                <td>${notice.create_date }</td>
 
                 <!--  <td class="td-status">
                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td> -->
@@ -101,10 +101,10 @@
                 <c:choose>
                     <c:when test="${sessionScope.tip  == 1 }">
                         <td class="td-manage">
-                            <a title="编辑" href="${ctx}/employee/add?id=${dept.id }">
+                            <a title="编辑" href="${ctx}/employee/add?id=${notice.id }">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="删除" onclick="member_del(this,'${dept.id }')" href="javascript:">
+                            <a title="删除" onclick="member_del(this,'${notice.id }')" href="javascript:">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
                         </td>

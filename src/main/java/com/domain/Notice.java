@@ -8,7 +8,16 @@ public class Notice implements Serializable {
     private String content;
     private String Create_date;
     private Integer user_id;
+    private String name;
     private User user;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Notice() {
         super();

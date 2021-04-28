@@ -76,23 +76,6 @@
             </table>
         </div>
     </fieldset>
-    <fieldset class="layui-elem-field">
-        <legend>开发团队</legend>
-        <div class="layui-field-box">
-            <table class="layui-table">
-                <tbody>
-                <tr>
-                    <th>版权所有</th>
-                    <td>lhb</td>
-                </tr>
-                <tr>
-                    <th>开发者</th>
-                    <td>李厚波</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </fieldset>
 </div>
 <script>
     var _hmt = _hmt || [];

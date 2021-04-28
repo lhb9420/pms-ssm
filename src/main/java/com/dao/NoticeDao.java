@@ -18,13 +18,13 @@ public interface NoticeDao {
 	List<Notice> get_LikeList(String content);
 
 	@SelectProvider(type=NoticeDynaSqlProvider.class,method="insert_Notice")
-	void insert_Info(Notice employee);
+	void insert_Info(Notice notice);
 	
 	@Select("select * from "+NOTICETABLE+" where id = #{id}")
 	Notice get_Info(Integer id);
 
 	@SelectProvider(type=NoticeDynaSqlProvider.class,method="update_Notice")
-	void update_Info(Notice employee);
+	void update_Info(Notice notice);
 	// 根据id删除部门
 	@Delete(" delete from "+NOTICETABLE+" where id = #{id} ")
 	void delete_Info(Integer id);

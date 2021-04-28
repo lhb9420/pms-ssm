@@ -172,7 +172,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="">
+                        <a _href="${ctx }/leave/add">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>申请请假</cite>
                         </a>
