@@ -31,7 +31,7 @@
           <cite>用户信息</cite></a>
       </span>
     <button type="button" onclick="location.href='${ctx}/user/add'" class="layui-btn layui-btn-small"
-            style="line-height:1.6em;margin-top:3px;float:innert;margin-left:75%;;"><i class="layui-icon"></i>增加
+            style="line-height:1.6em;margin-top:3px;float:inherit;margin-left:75%;;"><i class="layui-icon"></i>增加
     </button>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="${ctx }/user/list"
        title="刷新">
@@ -40,18 +40,11 @@
 <div class="x-body">
     <div class="layui-row" style="" align="center">
         <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/user/list">
-            <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
             <input type="text" name="content" style="width:50%;" placeholder="请输入查找登陆名" autocomplete="off"
                    class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
-    <%-- <xblock>
-<!--        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
-      <button class="layui-btn" onclick="x_admin_show('添加用户','${ctx}/dept/add')"><i class="layui-icon"></i>添加</button>
-      <span class="x-right" style="line-height:40px">共有数据：88 条</span>
-    </xblock> --%>
 
 
     <table class="layui-table">
@@ -78,14 +71,7 @@
                 <td>${notice.loginname }</td>
                 <td>${notice.username }</td>
                 <td>${notice.create_date }</td>
-
-                <!--  <td class="td-status">
-                   <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td> -->
                 <td class="td-manage">
-                    <!--  <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                       <i class="layui-icon">&#xe601;</i>
-                     </a> -->
-                        <%-- <a title="编辑"  onclick="x_admin_show('编辑','${ctx}/job/add?id=${dept.id }');" href="javascript:;"> --%>
                     <a title="编辑" href="${ctx}/notice/add?id=${notice.id }">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
@@ -100,16 +86,6 @@
 
         </tbody>
     </table>
-    <!--  <div class="page">
-       <div>
-         <a class="prev" href="">&lt;&lt;</a>
-         <a class="num" href="">1</a>
-         <span class="current">2</span>
-         <a class="num" href="">3</a>
-         <a class="num" href="">489</a>
-         <a class="next" href="">&gt;&gt;</a>
-       </div>
-     </div> -->
 
 </div>
 <script>
@@ -174,13 +150,15 @@
         });
     }
 </script>
-<script>var _hmt = _hmt || [];
-(function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 </body>
 
 </html>

@@ -19,8 +19,7 @@ public interface UserDao {
 	List<User> get_LikeList(String content);
 
 	@Select("select * from "+USERTABLE+"  where loginname = #{loginname} AND password = #{password}")
-	User get_login(@Param("loginname") String loginname,
-                   @Param("password") String password);
+	User get_login(@Param("loginname") String loginname, @Param("password") String password);
 	
 	@SelectProvider(type=UserDynaSqlProvider.class,method="insert_Notice")
 	void insert_Info(User employee);

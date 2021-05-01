@@ -403,4 +403,24 @@ public class RainServiceImpl implements RainService {
     public void insert_leave(Leave leave) {
         leaveDao.insert(leave);
     }
+
+    @Override
+    public Employee get_EmployeeIdByName(String name) {
+        return employeedao.get_IdByName(name);
+    }
+
+    @Override
+    public List<Attendance> get_AttendanceId(String day) {
+        return attendanceDao.get_IdByNameAndDay(day);
+    }
+
+    @Override
+    public void update_AttendanceInfo(Attendance attendance) {
+        attendanceDao.update_attendanceInfo(attendance);
+    }
+
+    @Override
+    public void insert_AttendanceInfo(Attendance attendance) {
+        attendanceDao.insert_attendanceInfo(attendance);
+    }
 }

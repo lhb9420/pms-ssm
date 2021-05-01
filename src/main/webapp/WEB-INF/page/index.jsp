@@ -115,15 +115,15 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href=" ">
+                        <a _href="${ctx }/attendance/sign-in">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>今日考勤</cite>
+                            <cite>签到</cite>
                         </a>
                     </li>
                     <li>
                         <a _href="${ctx }/attendance/list">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>历史考勤</cite>
+                            <cite>考勤记录</cite>
                         </a>
                     </li>
                 </ul>

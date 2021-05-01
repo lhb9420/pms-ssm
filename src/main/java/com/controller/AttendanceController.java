@@ -1,8 +1,10 @@
 package com.controller;
 
 import com.domain.Attendance;
-import com.domain.Leave;
+import com.domain.User;
 import com.service.RainService;
+import com.util.TimeGenerate;
+import com.util.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -42,5 +45,32 @@ public class AttendanceController {
         }
         model.addAttribute("list", attendance_list);
         return "/attendance/list";
+    }
+    @RequestMapping(value = "/attendance/sign-in",method = RequestMethod.GET)
+    public String signin(){
+        return "/attendance/sign-in";
+    }
+
+    @RequestMapping(value = "/attendance/sign",method = RequestMethod.GET)
+    public void sign(HttpSession session){
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name=user.getUsername();
+        String day= TimeGenerate.getday();
+        String hour=TimeGenerate.gethour();
+        Integer employee_id=rainservice.get_EmployeeIdByName(name).getId();
+        List<Attendance> attendances_onday=rainservice.get_AttendanceId(day);
+        Integer addendance_id=null;
+        for (Attendance date: attendances_onday) {
+            if(date.getName().equals(name)){
+                addendance_id=date.getAttendance_Id();
+            }
+        }
+        if(addendance_id!=null){
+            Attendance attendance=new Attendance(addendance_id,hour);
+            rainservice.update_AttendanceInfo(attendance);
+        }else{
+            Attendance attendance=new Attendance(employee_id,name,day,hour);
+            rainservice.insert_AttendanceInfo(attendance);
+        }
     }
 }

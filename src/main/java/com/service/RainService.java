@@ -103,4 +103,12 @@ public interface RainService {
     void enable_Leave(Integer leave_id);
 
     void insert_leave(Leave leave);
+
+    List<Attendance> get_AttendanceId(String day);
+
+    void update_AttendanceInfo(Attendance attendance);
+
+    Employee get_EmployeeIdByName(String name);
+
+    void insert_AttendanceInfo(Attendance attendance);
 }

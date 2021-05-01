@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.domain.Employee;
 import com.domain.User;
 import com.service.RainService;
 import com.util.common.Constants;
@@ -99,7 +98,6 @@ public class UserController {
 		}
 		@RequestMapping(value="/user/add",method=RequestMethod.POST)
 		 public ModelAndView add(ModelAndView mv,@ModelAttribute User notice ,Integer id){
-			System.out.println(id);
 			if(id!=null){
 				rainservice.update_UserInfo(notice);
 			}else{

@@ -58,7 +58,6 @@
             <th>上午下班时间</th>
             <th>下午上班时间</th>
             <th>下午下班时间</th>
-            <th>操作</th>
         </thead>
         <tbody>
         <c:forEach items="${requestScope.list}" var="attendance" varStatus="stat">
@@ -73,15 +72,6 @@
                 <td>${attendance.record2 }</td>
                 <td>${attendance.record3 }</td>
                 <td>${attendance.record4 }</td>
-                <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
-                        <td class="td-manage">
-                            <a title="编辑" href="${ctx}/employee/add?id=${attendance.attendance_id }">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                        </td>
-                    </c:when>
-                </c:choose>
             </tr>
         </c:forEach>
         </tbody>

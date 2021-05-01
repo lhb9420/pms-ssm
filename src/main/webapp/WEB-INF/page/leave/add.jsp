@@ -67,7 +67,6 @@
         //拼装完整日期格式
         var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
         document.getElementById("date").value=(today);
-        //or  $("#date").val(today);
     </script>
   </body>
 

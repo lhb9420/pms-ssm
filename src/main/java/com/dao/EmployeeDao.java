@@ -37,4 +37,7 @@ public interface EmployeeDao {
 			
 			@Select("select * from "+EMPLOYEETABLE+" where name=#{name} and password=#{password}")
 			Employee get_ByInfo(@Param("name") String name, @Param("password") String password);
+
+			@Select("select * from "+EMPLOYEETABLE+" where name=#{name}")
+			Employee get_IdByName(String name);
 }

@@ -49,12 +49,10 @@ public class AuthorizedInterceptor  implements HandlerInterceptor {
 		boolean flag = false; 
 		/** 获得请求的ServletPath */
 		String servletPath = request.getServletPath();
-		System.out.println(servletPath);
 		/**  判断请求是否需要拦截 */
         for (String s : IGNORE_URI) {
             if (servletPath.contains(s)) {
                 flag = true;
-                System.out.println("*********************");
                 break;
             }
         }
