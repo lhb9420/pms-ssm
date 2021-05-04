@@ -36,61 +36,76 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
-    <div class="layui-row" style="" align="center">
-        <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/salary/list">
-            <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
-            <input type="text" name="content" style="width:50%;" placeholder="请输入查找员工姓名" autocomplete="off"
-                   class="layui-input">
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+    <div class="demoTable" action="${ctx }/salary/table">
+        名字：
+        <div class="layui-inline">
+            <input class="layui-input" name="userName" id="userName" autocomplete="off">
+        </div>
+        <button class="layui-btn layui-btn-normal" data-type="reload">搜索</button>
     </div>
 
-    <table class="layui-table" id="salary_table" >
-        <thead>
-        <tr>
-            <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
-                        class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th>ID</th>
-            <th>姓名</th>
-            <th>月份</th>
-            <th>基本工资</th>
-            <th>加班工资</th>
-            <th>奖金</th>
-            <th>总额</th>
-            <th>操作</th>
-        </thead>
-        <tbody>
-        <c:forEach items="${requestScope.list}" var="salary" varStatus="stat">
-            <tr>
-                <td>
-                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
-                            class="layui-icon">&#xe605;</i></div>
-                </td>
-                <td>${stat.count }</td>
-                <td>${salary.name }</td>
-                <td>${salary.month }</td>
-                <td>${salary.base_salary }</td>
-                <td>${salary.overtime_salary }</td>
-                <td>${salary.bonus }</td>
-                <td>${salary.total }</td>
-                <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
-                        <td class="td-manage">
-                            <a title="编辑" href="${ctx}/employee/add?id=${salary.salary_id }">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                        </td>
-                    </c:when>
-                </c:choose>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+    <table id="salary" lay-filter="test"></table>
 
 </div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('确定删除？', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    $.get("${ctx}/salary/delete?salary_id=" + data.salary_id);//向服务端发送删除指令
+                    layer.close(index);
+                });
+            }
+        });
+        //方法级渲染
+        table.render({
+            elem: '#salary'
+            ,url: '${ctx }/salary/table'
+            ,limit:5
+            ,limits:[5,10,20]
+            ,cols: [[
+                {checkbox: true, fixed: true}
+                ,{field:'name', title: '姓名', sort: true}
+                ,{field:'month', title: '月份',sort: true}
+                ,{field:'base_salary', title: '基本工资', sort: true}
+                ,{field:'overtime_salary', title: '加班工资',sort: true}
+                ,{field:'bonus', title: '奖金',sort: true}
+                ,{field:'total', title: '总额',sort: true}
+                ,{fixed: 'right',title: '操作', width:150, align:'center',
+                    toolbar: '#barDemo'}
+            ]]
+            ,id: 'testReload'
+            ,page: true
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var nameNode = $("#userName");
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        userName: nameNode.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');// type='reload'
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+</script>
 <script>var _hmt = _hmt || [];
 (function () {
     var hm = document.createElement("script");

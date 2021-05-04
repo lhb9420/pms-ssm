@@ -37,18 +37,11 @@
 <div class="x-body">
     <div class="layui-row" style="" align="center">
         <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/leave/list">
-            <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
             <input type="text" name="content" style="width:50%;" placeholder="请输入查找标题" autocomplete="off"
                    class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
-    <%-- <xblock>
-<!--        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
-      <button class="layui-btn" onclick="x_admin_show('添加用户','${ctx}/dept/add')"><i class="layui-icon"></i>添加</button>
-      <span class="x-right" style="line-height:40px">共有数据：88 条</span>
-    </xblock> --%>
 
 
     <table class="layui-table">

@@ -1,6 +1,7 @@
 package com.service;
 
 import com.domain.*;
+import com.util.Page;
 
 import java.util.List;
 
@@ -111,4 +112,8 @@ public interface RainService {
     void insert_SalaryInfo(Salary salary);
 
     User get_UserInfoByEmployeeId(Integer id);
+
+    Page<Salary> list(int page, int limit,String userName);
+
+    void delete_salary(Integer salary_id);
 }

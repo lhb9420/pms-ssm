@@ -3,6 +3,7 @@ package com.service.impl;
 import com.dao.*;
 import com.domain.*;
 import com.service.RainService;
+import com.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -406,5 +407,28 @@ public class RainServiceImpl implements RainService {
     @Override
     public User get_UserInfoByEmployeeId(Integer id) {
         return userdao.get_InfoByEmployeeId(id);
+    }
+
+    @Override
+    public Page<Salary> list(int page, int limit, String name) {
+        //计算起始索引
+        int start = limit * (page - 1);
+        List<Salary> list;
+        Page<Salary> p = new Page<>();
+        if (name == null) {
+            list = salaryDao.getListWithoutNmae(start, limit);
+            p.setCount(salaryDao.get_List().size());
+        } else {
+            list = salaryDao.getList(start, limit, name);
+            p.setCount(salaryDao.get_LikeList(name).size());
+        }
+        //封装分页数据
+        p.setData(list);
+        return p;
+    }
+
+    @Override
+    public void delete_salary(Integer salary_id) {
+        salaryDao.deleteById(salary_id);
     }
 }

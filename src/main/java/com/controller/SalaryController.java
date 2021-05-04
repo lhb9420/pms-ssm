@@ -2,14 +2,12 @@ package com.controller;
 
 import com.domain.*;
 import com.service.RainService;
+import com.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -35,12 +33,7 @@ public class SalaryController {
     }
 
     @RequestMapping(value = "/salary/list", method = RequestMethod.GET)
-    public String index(Model model, String content) {
-        List<Salary> salary_list = rainservice.get_SalaryList();
-        if (content != null) {
-            salary_list = rainservice.get_SalaryLikeList(content);
-        }
-        model.addAttribute("list", salary_list);
+    public String index() {
         return "/salary/list";
     }
 
@@ -52,11 +45,23 @@ public class SalaryController {
     }
 
     @RequestMapping(value = "/salary/calculate", method = RequestMethod.POST)
-    public ModelAndView add(ModelAndView mv,@ModelAttribute Salary salary) {
-        salary.setTotal(salary.getBase_salary()+ salary.getOvertime_salary()+ salary.getBonus());
+    public ModelAndView add(ModelAndView mv, @ModelAttribute Salary salary) {
+        salary.setTotal(salary.getBase_salary() + salary.getOvertime_salary() + salary.getBonus());
         salary.setEmployee_id(rainservice.get_EmployeeIdByName(salary.getName()).getId());
         rainservice.insert_SalaryInfo(salary);
         mv.setViewName("redirect:/salary/list");
-		return mv;
+        return mv;
+    }
+
+    @RequestMapping("/salary/table")
+    @ResponseBody
+    public Page<Salary> salary_table(int page, int limit, String userName) {
+        Page<Salary> date = rainservice.list(page, limit, userName);
+        return date;
+    }
+
+    @RequestMapping("/salary/delete")
+    public void delete(Integer salary_id){
+        rainservice.delete_salary(salary_id);
     }
 }
