@@ -151,7 +151,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="">
+                        <a _href="${ctx }/salary/calculate">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>工资核算</cite>
                         </a>

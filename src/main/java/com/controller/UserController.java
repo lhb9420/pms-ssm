@@ -81,11 +81,11 @@ public class UserController {
 		}
 		@RequestMapping(value="/user/list",method=RequestMethod.GET)
 		 public String index(Model model,String content){
-			List<User> job_list = rainservice.get_UserList();
+			List<User> user_list = rainservice.get_UserList();
 			if (content!=null){
-				job_list = rainservice.get_UserLikeList(content);
+				user_list = rainservice.get_UserLikeList(content);
 			}
-			model.addAttribute("list",job_list);
+			model.addAttribute("list",user_list);
 			return "user/list";
 		}
 		@RequestMapping(value="/user/add",method=RequestMethod.GET)

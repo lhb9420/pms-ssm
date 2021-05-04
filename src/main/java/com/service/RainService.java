@@ -78,9 +78,9 @@ public interface RainService {
 
     User get_UserInfo(Integer id);
 
-    void update_UserInfo(User notice);
+    void update_UserInfo(User user);
 
-    void insert_UserInfo(User notice);
+    void insert_UserInfo(User user);
 
     void delete_UserInfo(Integer id);
 
@@ -91,10 +91,6 @@ public interface RainService {
     List<Leave> get_LeaveList();
 
     List<Leave> get_LeaveLikeList(String content);
-
-    List<Overtime> get_OvertimeList();
-
-    List<Overtime> get_OvertimeLikeList(String content);
 
     List<Attendance> get_AttendanceList();
 
@@ -111,4 +107,8 @@ public interface RainService {
     Employee get_EmployeeIdByName(String name);
 
     void insert_AttendanceInfo(Attendance attendance);
+
+    void insert_SalaryInfo(Salary salary);
+
+    User get_UserInfoByEmployeeId(Integer id);
 }

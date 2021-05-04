@@ -7,12 +7,13 @@ import com.domain.Salary;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static com.util.common.Constants.LEAVETABLE;
 
-
+@Repository
 public interface LeaveDao {
     @Select("select * from "+LEAVETABLE+" ")
     List<Leave> get_List();

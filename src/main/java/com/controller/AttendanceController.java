@@ -56,20 +56,48 @@ public class AttendanceController {
         User user = (User) session.getAttribute(Constants.USER_SESSION);
         String name=user.getUsername();
         String day= TimeGenerate.getday();
-        String hour=TimeGenerate.gethour();
+
+        //得到用户的编号
         Integer employee_id=rainservice.get_EmployeeIdByName(name).getId();
+        //得到这一天所有的考勤记录
         List<Attendance> attendances_onday=rainservice.get_AttendanceId(day);
-        Integer addendance_id=null;
+        Integer attendance_id=null;
+        //找到这位用户的记录
         for (Attendance date: attendances_onday) {
             if(date.getName().equals(name)){
-                addendance_id=date.getAttendance_Id();
+                attendance_id=date.getAttendance_Id();
             }
         }
-        if(addendance_id!=null){
-            Attendance attendance=new Attendance(addendance_id,hour);
+        //找到这位用户的记录
+        String hour=TimeGenerate.gethour();
+        Attendance attendance=new Attendance();
+        switch (TimeGenerate.timesort()){
+            case 1:
+                attendance.setRecord1(hour);
+                break;
+            case 2:
+                attendance.setRecord2(hour);
+                break;
+            case 3:
+                attendance.setRecord3(hour);
+                break;
+            case 4:
+                attendance.setRecord4(hour);
+                break;
+            case 5:
+                attendance.setRecord5(hour);
+                break;
+            case 6:
+                attendance.setRecord6(hour);
+                break;
+        }
+        if(attendance_id!=null){
+            attendance.setAttendance_Id(attendance_id);
             rainservice.update_AttendanceInfo(attendance);
         }else{
-            Attendance attendance=new Attendance(employee_id,name,day,hour);
+           attendance.setEmployee_id(employee_id);
+           attendance.setName(name);
+           attendance.setDay(day);
             rainservice.insert_AttendanceInfo(attendance);
         }
     }

@@ -6,7 +6,7 @@ public class Salary implements Serializable {
     private Integer salary_id;
     private Integer employee_id;
     private String name;
-    private Integer month;
+    private String month;
     private Integer base_salary;
     private Integer overtime_salary;
     private Integer bonus;
@@ -36,16 +36,20 @@ public class Salary implements Serializable {
         return name;
     }
 
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getMonth() {
+    public String getMonth() {
         return month;
     }
 
     public void setMonth(Integer month) {
-        this.month = month;
+        this.month = String.valueOf(month);
     }
 
     public Integer getBase_salary() {

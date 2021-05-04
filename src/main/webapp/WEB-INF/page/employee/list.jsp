@@ -37,20 +37,11 @@
 <div class="x-body">
     <div class="layui-row" style="" align="center">
         <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/employee/list">
-            <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
             <input type="text" name="content" style="width:50%;" placeholder="请输入查找员工姓名" autocomplete="off"
                    class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
-    <%-- <xblock>
-<!--        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
-      <button class="layui-btn" onclick="x_admin_show('添加用户','${ctx}/dept/add')"><i class="layui-icon"></i>添加</button>
-      <span class="x-right" style="line-height:40px">共有数据：88 条</span>
-    </xblock> --%>
-
-
     <table class="layui-table">
         <thead>
         <tr>
@@ -59,6 +50,7 @@
                         class="layui-icon">&#xe605;</i></div>
             </th>
             <th>姓名</th>
+            <th>登录名</th>
             <th>性别</th>
             <th>手机号码</th>
             <th>邮箱</th>
@@ -68,58 +60,50 @@
             <th>部门</th>
             <th>联系地址</th>
             <th>建档日期</th>
-            <!-- <th>状态</th> -->
             <th>操作</th>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.list}" var="notice" varStatus="stat">
+        <c:forEach items="${requestScope.list}" var="employee" varStatus="stat">
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
                             class="layui-icon">&#xe605;</i></div>
                 </td>
-                <td>${notice.name }</td>
+                <td>${employee.name }</td>
+                <td>${employee.login_name }</td>
                 <td>
                     <c:choose>
-                        <c:when test="${notice.sex == 1 }">男</c:when>
+                        <c:when test="${employee.sex == 1 }">男</c:when>
                         <c:otherwise>女</c:otherwise>
                     </c:choose>
-
                 </td>
-                <td>${notice.phone }</td>
-                <td>${notice.email }</td>
-                <td>${notice.job.name }</td>
-                <td>${notice.education }</td>
-                <td>${notice.card_id }</td>
-                <td>${notice.dept.name }</td>
-                <td>${notice.address }</td>
-                <td>${notice.create_date }</td>
-
-                <!--  <td class="td-status">
-                   <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td> -->
-
+                <td>${employee.phone }</td>
+                <td>${employee.email }</td>
+                <td>${employee.job.name }</td>
+                <td>${employee.education }</td>
+                <td>${employee.card_id }</td>
+                <td>${employee.dept.name }</td>
+                <td>${employee.address }</td>
+                <td>${employee.create_date }</td>
                 <c:choose>
                     <c:when test="${sessionScope.tip  == 1 }">
                         <td class="td-manage">
-                            <a title="编辑" href="${ctx}/employee/add?id=${notice.id }">
+                            <a title="编辑" href="${ctx}/employee/add?id=${employee.id }">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="删除" onclick="member_del(this,'${notice.id }')" href="javascript:">
+                            <a title="删除" onclick="member_del(this,'${employee.id }')" href="javascript:">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
                         </td>
                     </c:when>
 
                 </c:choose>
-
             </tr>
 
         </c:forEach>
 
-
         </tbody>
     </table>
-
 </div>
 <script>
     layui.use('laydate', function () {
@@ -136,30 +120,6 @@
         });
     });
 
-    /*用户-停用*/
-    function member_stop(obj, id) {
-        layer.confirm('确认要停用吗？', function (index) {
-
-            if ($(obj).attr('title') == '启用') {
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title', '停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {icon: 5, time: 1000});
-
-            } else {
-                $(obj).attr('title', '启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {icon: 5, time: 1000});
-            }
-
-        });
-    }
-
     /*用户-删除*/
     function member_del(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
@@ -171,17 +131,6 @@
         });
     }
 
-
-    function delAll(argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？' + data, function (index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-    }
 </script>
 <script>var _hmt = _hmt || [];
 (function () {

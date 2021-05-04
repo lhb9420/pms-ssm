@@ -5,12 +5,14 @@ import com.domain.Attendance;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static com.util.common.Constants.ATTENDENCETABLE;
 import static com.util.common.Constants.JOBTABLE;
 
+@Repository
 public interface AttendanceDao {
     @Select("select * from " + ATTENDENCETABLE + " ")
     List<Attendance> get_List();

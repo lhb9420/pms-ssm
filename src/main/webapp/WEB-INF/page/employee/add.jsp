@@ -26,14 +26,14 @@
 <body>
 <div class="x-body">
     <form class="layui-form" method="POST" id="deptForm" action="${ctx}/employee/add">
-        <input type="hidden" name="id" id="id" value="${job.id }">
+        <input type="hidden" name="id" id="id" value="${employee.id }">
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">
                 <span class="x-red">*</span>姓名
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="name" name="name" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.name }">
+                       autocomplete="off" class="layui-input" value="${employee.name }">
             </div>
 
         </div>
@@ -43,7 +43,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="login_name" name="login_name" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.login_name }">
+                       autocomplete="off" class="layui-input" value="${employee.login_name }">
             </div>
 
         </div>
@@ -53,7 +53,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="password" name="password" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.password }">
+                       autocomplete="off" class="layui-input" value="${employee.password }">
             </div>
 
         </div>
@@ -63,7 +63,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="card_id" name="card_id" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.card_id }">
+                       autocomplete="off" class="layui-input" value="${employee.card_id }">
             </div>
         </div>
         <div class="layui-form-item">
@@ -72,7 +72,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="sex" name="sex" placeholder="男性请输入1，女性请输入2" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.sex }">
+                       autocomplete="off" class="layui-input" value="${employee.sex }">
             </div>
         </div>
         <div class="layui-form-item">
@@ -81,7 +81,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="education" name="education" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.education }">
+                       autocomplete="off" class="layui-input" value="${employee.education }">
             </div>
         </div>
         <div class="layui-form-item">
@@ -90,7 +90,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="email" name="email" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.email }">
+                       autocomplete="off" class="layui-input" value="${employee.email }">
             </div>
         </div>
         <div class="layui-form-item">
@@ -99,7 +99,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="phone" name="phone" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.phone }">
+                       autocomplete="off" class="layui-input" value="${employee.phone }">
             </div>
         </div>
         <div class="layui-form-item">
@@ -108,7 +108,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="address" name="address" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="${job.address }">
+                       autocomplete="off" class="layui-input" value="${employee.address }">
             </div>
         </div>
         <div class="layui-form-item">
@@ -119,7 +119,7 @@
                 <select id="job_id" name="job_id" class="valid">
                     <c:forEach items="${requestScope.job_list}" var="line" varStatus="stat">
                         <option value="${line.id}"
-                                <c:if test="${job.job_id == line.id }">selected</c:if>>${line.name}</option>
+                                <c:if test="${employee.job_id == line.id }">selected</c:if>>${line.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -132,7 +132,7 @@
                 <select id="dept_id" name="dept_id" class="valid">
                     <c:forEach items="${requestScope.dept_list}" var="line" varStatus="stat">
                         <option value="${line.id}"
-                                <c:if test="${job.dept_id == line.id }">selected</c:if>>${line.name}</option>
+                                <c:if test="${employee.dept_id == line.id }">selected</c:if>>${line.name}</option>
                     </c:forEach>
                 </select>
             </div>

@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.domain.Attendance;
 import com.domain.Leave;
 import com.domain.Overtime;
 import com.service.RainService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,11 +38,19 @@ public class OverController {
 
     @RequestMapping(value = "/overtime/list", method = RequestMethod.GET)
     public String index(Model model, String content) {
-        List<Overtime> leave_list = rainservice.get_OvertimeList();
+        List<Attendance> attendance_list;
         if (content != null) {
-            leave_list = rainservice.get_OvertimeLikeList(content);
+            attendance_list = rainservice.get_AttenanceLikeList(content);
+        } else {
+            attendance_list = rainservice.get_AttendanceList();
         }
-        model.addAttribute("list", leave_list);
+        List<Overtime> overtime_list = new ArrayList<>();
+        for (int i = 0; i < attendance_list.size(); i++) {
+            if (attendance_list.get(i).getRecord5()!=null){
+                overtime_list.add(new Overtime(attendance_list.get(i).getName(),attendance_list.get(i).getDay(),attendance_list.get(i).getRecord5(),attendance_list.get(i).getRecord6()));
+            }
+        }
+        model.addAttribute("list", overtime_list);
         return "/overtime/list";
     }
 }

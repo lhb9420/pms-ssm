@@ -54,6 +54,7 @@
             </th>
             <th>ID</th>
             <th>姓名</th>
+            <th>时间</th>
             <th>上午上班时间</th>
             <th>上午下班时间</th>
             <th>下午上班时间</th>
@@ -68,6 +69,7 @@
                 </td>
                 <td>${stat.count }</td>
                 <td>${attendance.name }</td>
+                <td>${attendance.day }</td>
                 <td>${attendance.record1 }</td>
                 <td>${attendance.record2 }</td>
                 <td>${attendance.record3 }</td>

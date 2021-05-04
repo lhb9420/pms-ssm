@@ -66,6 +66,9 @@ public class EmployeeDynaSqlProvider {
 						if(job.getCreate_date()!=null){
 							VALUES("create_date","#{create_date}");
 						}
+						if(job.getLogin_name()!=null){
+							VALUES("login_name","#{login_name}");
+						}
 						if(job.getDept_id()!=null){
 							VALUES("dept_id","#{dept_id}");
 						}
@@ -76,69 +79,72 @@ public class EmployeeDynaSqlProvider {
 				}.toString();
 			}	
 			// 动态更新
-			public String update_Employee(final Employee job){
+			public String update_Employee(final Employee employee){
 				
 				return new SQL(){
 					{
 						UPDATE(EMPLOYEETABLE);
-						if(job.getName() != null ){
+						if(employee.getName() != null ){
 							SET("name = #{name}");
 						}
-						if(job.getCard_id()!=null){
+						if(employee.getCard_id()!=null){
 							SET("card_id = #{card_id}");
 						}
-						if(job.getAddress()!=null){
+						if(employee.getAddress()!=null){
 							SET("address = #{address}");
 						}
-						if(job.getPassword()!=null){
+						if(employee.getPassword()!=null){
 							SET("password = #{password}");
 						}
-						if(job.getPost_code()!=null){
+						if(employee.getPost_code()!=null){
 							SET("post_code = #{post_code}");
 						}
-						if(job.getTel()!=null){
+						if(employee.getTel()!=null){
 							SET("tel = #{tel}");
 						}
-						if(job.getPhone()!=null){
+						if(employee.getPhone()!=null){
 							SET("phone = #{phone}");
 						}
-						if(job.getQq_num()!=null){
+						if(employee.getQq_num()!=null){
 							SET("qq_nul = #{qq_num}");
 						}
-						if(job.getEmail()!=null){
+						if(employee.getEmail()!=null){
 							SET("email = #{email}");
 						}
-						if(job.getSex()!=null){
+						if(employee.getSex()!=null){
 							SET("sex = #{sex}");
 						}
-						if(job.getParty()!=null){
+						if(employee.getParty()!=null){
 							SET("party = #{party}");
 						}
-						if(job.getBirthday()!=null){
+						if(employee.getBirthday()!=null){
 							SET("birthday = #{birthday}");
 						}
-						if(job.getRace()!=null){
+						if(employee.getRace()!=null){
 							SET("race = #{race}");
 						}
-						if(job.getEducation()!=null){
+						if(employee.getLogin_name()!=null){
+							SET("login_name = #{login_name}");
+						}
+						if(employee.getEducation()!=null){
 							SET("education = #{education}");
 						}
-						if(job.getSpeciality()!=null){
+						if(employee.getSpeciality()!=null){
 							SET("speciality = #{speciality}");
 						}
-						if(job.getHobby()!=null){
+						if(employee.getHobby()!=null){
 							SET("hobby = #{hobby}");
 						}
-						if(job.getRemark()!=null){
+						if(employee.getRemark()!=null){
 							SET("remark = #{remark}");
 						}
-						if(job.getCreate_date()!=null){
+						if(employee.getCreate_date()!=null){
 							SET("create_date = #{create_date}");
 						}
-						if(job.getDept_id()!=null){
+						if(employee.getDept_id()!=null){
 							SET("dept_id = #{dept_id}");
 						}
-						if(job.getJob_id()!=null){
+						if(employee.getJob_id()!=null){
 							SET("job_id = #{job_id}");
 						}
 						

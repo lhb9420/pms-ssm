@@ -57,50 +57,48 @@
     <div style="text-align: center;margin-top: 40px">
         <div class="layui-inline">
 
-        <table class="layui-table" align="center">
-            <colgroup>
-                <col width="170">
-                <col width="170">
-                <col width="170">
-            </colgroup>
-            <thead>
-            <tr>
-                <th>上午（9:00-12:00）</th>
-                <th>下午（14:00-18:00）</th>
-                <th>加班（20:00-22:00）</th>
-            </tr>
-            </thead>
-            <tb>
-                <td class="td-manage">
-                    <a title="签到" onclick="time_range('8:00','9:00')">
-                        <i class="layui-icon">&#x1005;</i>
-                    </a>
-                    <a title="签退" onclick="time_range('12:00','13:00')">
-                        <i class="layui-icon">&#x1007;</i>
-                    </a>
-                </td>
-                <td class="td-manage">
-                    <a title="签到" onclick="time_range('16:00','20:00')">
-                        <i class="layui-icon">&#x1005;</i>
-                    </a>
-                    <a title="签退" onclick="time_range('16:00','19:00')">
-                        <i class="layui-icon">&#x1007;</i>
-                    </a>
-                </td>
-                <td class="td-manage">
-                    <a title="签到" onclick="time_range('19:00','20:00')">
-                        <i class="layui-icon">&#x1005;</i>
-                    </a>
-                    <a title="签退" onclick="time_range('22:00','23:00')">
-                        <i class="layui-icon">&#x1007;</i>
-                    </a>
-                </td>
-            </tb>
-
-        </table>
+            <table class="layui-table" align="center">
+                <colgroup>
+                    <col width="170">
+                    <col width="170">
+                    <col width="170">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>上午（9:00-12:00）</th>
+                    <th>下午（14:00-18:00）</th>
+                    <th>加班（20:00-22:00）</th>
+                </tr>
+                </thead>
+                <tb>
+                    <td class="td-manage">
+                        <a title="签到" onclick="time_range('8:00','9:00')">
+                            <i class="layui-icon">&#x1005;</i>
+                        </a>
+                        <a title="签退" onclick="time_range('12:00','13:00')">
+                            <i class="layui-icon">&#x1007;</i>
+                        </a>
+                    </td>
+                    <td class="td-manage">
+                        <a title="签到" onclick="time_range('13:00','14:00')">
+                            <i class="layui-icon">&#x1005;</i>
+                        </a>
+                        <a title="签退" onclick="time_range('18:00','19:00')">
+                            <i class="layui-icon">&#x1007;</i>
+                        </a>
+                    </td>
+                    <td class="td-manage">
+                        <a title="签到" onclick="time_range('19:00','20:00')">
+                            <i class="layui-icon">&#x1005;</i>
+                        </a>
+                        <a title="签退" onclick="time_range('22:00','23:00')">
+                            <i class="layui-icon">&#x1007;</i>
+                        </a>
+                    </td>
+                </tb>
+            </table>
+        </div>
     </div>
-    </div>
-
 </div>
 <script>
     //时间范围判断

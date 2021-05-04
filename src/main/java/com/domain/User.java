@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private Integer id;
+    private Integer employee_id;
     private String username;
     private String loginname;
     private String password;
@@ -14,12 +15,28 @@ public class User implements Serializable {
         super();
     }
 
+    public User(Integer employee_id, String username, String loginname, String password, Integer status) {
+        this.employee_id = employee_id;
+        this.username = username;
+        this.loginname = loginname;
+        this.password = password;
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(Integer employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getUsername() {

@@ -52,6 +52,7 @@
             </th>
             <th>ID</th>
             <th>姓名</th>
+            <th>加班时间</th>
             <th>上班打卡时间</th>
             <th>下班打卡时间</th>
         </thead>
@@ -63,7 +64,8 @@
                             class="layui-icon">&#xe605;</i></div>
                 </td>
                 <td>${stat.count}</td>
-                <td>${overtime.name }</td>
+                <td>${overtime.name}</td>
+                <td>${overtime.day }</td>
                 <td>${overtime.record1 }</td>
                 <td>${overtime.record2 }</td>
             </tr>

@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="${ctx}/logo.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${ctx}/css/font.css">
     <link rel="stylesheet" href="${ctx}/css/xadmin.css">
+    <link rel="stylesheet" href="${ctx}/lib/layui/css/layui.css" media="all">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="${ctx}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${ctx}/js/xadmin.js"></script>
@@ -45,7 +46,7 @@
         </form>
     </div>
 
-    <table class="layui-table">
+    <table class="layui-table" id="salary_table" >
         <thead>
         <tr>
             <th>
@@ -75,27 +76,17 @@
                 <td>${salary.overtime_salary }</td>
                 <td>${salary.bonus }</td>
                 <td>${salary.total }</td>
-
                 <c:choose>
                     <c:when test="${sessionScope.tip  == 1 }">
                         <td class="td-manage">
-                            <!--  <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                               <i class="layui-icon">&#xe601;</i>
-                             </a> -->
-                                <%-- <a title="编辑"  onclick="x_admin_show('编辑','${ctx}/job/add?id=${dept.id }');" href="javascript:;"> --%>
                             <a title="编辑" href="${ctx}/employee/add?id=${salary.salary_id }">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
                         </td>
                     </c:when>
-
                 </c:choose>
-
             </tr>
-
         </c:forEach>
-
-
         </tbody>
     </table>
 

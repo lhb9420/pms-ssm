@@ -6,12 +6,28 @@ public class Overtime implements Serializable {
     private Integer overtime_id;
     private Integer employee_id;
     private String name;
+    private String day;
     private String record1;
     private String record2;
     private String create_date;
 
     public Overtime() {
         super();
+    }
+
+    public Overtime(String name,String day, String record1, String record2) {
+        this.name = name;
+        this.day=day;
+        this.record1 = record1;
+        this.record2 = record2;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public Integer getOvertime_id() {

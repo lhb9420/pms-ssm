@@ -33,8 +33,6 @@ public class RainServiceImpl implements RainService {
     @Autowired
     private LeaveDao leaveDao;
     @Autowired
-    private OvertimeDao overtimeDao;
-    @Autowired
     private AttendanceDao attendanceDao;
 
     /**
@@ -262,20 +260,20 @@ public class RainServiceImpl implements RainService {
     }
 
     @Override
-    public void update_UserInfo(User notice) {
+    public void update_UserInfo(User user) {
         // TODO Auto-generated method stub
-        userdao.update_Info(notice);
+        userdao.update_Info(user);
     }
 
     @Override
-    public void insert_UserInfo(User notice) {
+    public void insert_UserInfo(User user) {
         // TODO Auto-generated method stub
 //		Date date = new Date();    
 //		String year = String.format("%tY", date);   
 //		String month = String.format("%tB", date);   
 //		String day = String.format("%te", date);   
 //		notice.setCreate_date(year+month+day);
-        userdao.insert_Info(notice);
+        userdao.insert_Info(user);
     }
 
     @Override
@@ -344,30 +342,6 @@ public class RainServiceImpl implements RainService {
         return list2;
     }
 
-    //加班信息
-    @Override
-    public List<Overtime> get_OvertimeList() {
-        List<Overtime> list = overtimeDao.get_List();
-        int size = list.size();
-        List<Overtime> list2 = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            Overtime data = list.get(i);
-            list2.add(i, data);
-        }
-        return list2;
-    }
-
-    @Override
-    public List<Overtime> get_OvertimeLikeList(String content) {
-        List<Overtime> list = overtimeDao.get_LikeList(content);
-        int size = list.size();
-        List<Overtime> list2 = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            Overtime data = list.get(i);
-            list2.add(i, data);
-        }
-        return list2;
-    }
     //考勤信息
 
     @Override
@@ -422,5 +396,15 @@ public class RainServiceImpl implements RainService {
     @Override
     public void insert_AttendanceInfo(Attendance attendance) {
         attendanceDao.insert_attendanceInfo(attendance);
+    }
+
+    @Override
+    public void insert_SalaryInfo(Salary salary) {
+        salaryDao.insert_salary(salary);
+    }
+
+    @Override
+    public User get_UserInfoByEmployeeId(Integer id) {
+        return userdao.get_InfoByEmployeeId(id);
     }
 }

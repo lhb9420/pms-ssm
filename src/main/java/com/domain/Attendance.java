@@ -11,27 +11,22 @@ public class Attendance implements Serializable {
     private String record2;
     private String record3;
     private String record4;
+    private String record5;
+    private String record6;
     private String create_date;
 
     public Attendance() {
         super();
     }
 
-    public Attendance(Integer employee_id, String name, String day,String hour) {
+    public Attendance(Integer employee_id, String name, String day) {
         this.employee_id = employee_id;
         this.name = name;
         this.day = day;
-        this.record1=hour;
     }
 
-    public Attendance(Integer attendance_id, String hour) {
-        this.attendance_id=attendance_id;
-        this.record1=hour;
-    }
-
-    public Attendance(String name, String day) {
-        this.name = name;
-        this.day = day;
+    public Attendance(Integer employee_id) {
+        this.employee_id = employee_id;
     }
 
     public Integer getAttendance_Id() {
@@ -88,6 +83,22 @@ public class Attendance implements Serializable {
 
     public void setRecord4(String record4) {
         this.record4 = record4;
+    }
+
+    public String getRecord5() {
+        return record5;
+    }
+
+    public void setRecord5(String record5) {
+        this.record5 = record5;
+    }
+
+    public String getRecord6() {
+        return record6;
+    }
+
+    public void setRecord6(String record6) {
+        this.record6 = record6;
     }
 
     public String getCreate_date() {

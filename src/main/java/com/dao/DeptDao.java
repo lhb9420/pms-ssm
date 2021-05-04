@@ -5,11 +5,13 @@ import com.domain.Dept;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static com.util.common.Constants.DEPTTABLE;
 
+@Repository
 public interface DeptDao {
     //查询
     @Select("select * from " + DEPTTABLE + " ")

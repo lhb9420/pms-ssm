@@ -6,15 +6,18 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static com.util.common.Constants.USERTABLE;
 
+@Repository
 public interface UserDao {
 
 	@Select("select * from "+USERTABLE+" ")
 	List<User> get_List();
+
 	@Select("select * from "+USERTABLE+"  where loginname like CONCAT('%',#{content},'%')")
 	List<User> get_LikeList(String content);
 
@@ -33,4 +36,6 @@ public interface UserDao {
 	@Delete(" delete from "+USERTABLE+" where id = #{id} ")
 	void delete_Info(Integer id);
 
+	@Select("select * from "+USERTABLE+" where employee_id = #{employee_id}")
+	User get_InfoByEmployeeId(Integer id);
 }

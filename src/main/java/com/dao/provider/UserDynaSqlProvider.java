@@ -7,24 +7,26 @@ import static com.util.common.Constants.USERTABLE;
 
 public class UserDynaSqlProvider {
 			// 动态插入
-			public String insert_Notice(final User job){
+			public String insert_Notice(final User user){
 				
 				return new SQL(){
 					{
 						INSERT_INTO(USERTABLE);
-						if(job.getLoginname() != null ){
+						if(user.getLoginname() != null ){
 							VALUES("loginname", "#{loginname}");
 						}
-						if(job.getPassword()!=null){
+						if(user.getPassword()!=null){
 							VALUES("password","#{password}");
 						}
-						if(job.getUsername()!=null){
+						if(user.getUsername()!=null){
 							VALUES("username","#{username}");
 						}
-						if(job.getCreate_date()!=null){
-							VALUES("create_date","#{create_date}");
+						if(user.getEmployee_id()!=null){
+							VALUES("employee_id","#{employee_id}");
 						}
-					
+						if(user.getStatus()!=null){
+							VALUES("status","#{status}");
+						}
 						
 					}
 				}.toString();
