@@ -492,4 +492,31 @@ public class RainServiceImpl implements RainService {
         p.setData(list);
         return p;
     }
+
+    @Override
+    public Page<Employee> employee_list(int page, int limit, String userName) {
+        int start = limit * (page - 1);
+        Page<Employee> p = new Page<>();
+        List<Employee> list = new ArrayList<>();
+        if (userName == null) {
+            list = employeedao.getList(start, limit);
+            p.setCount(employeedao.get_List().size());
+        } else if (userName != null) {
+            list = employeedao.getListByName(start, limit, userName);
+            p.setCount(employeedao.get_LikeList(userName).size());
+        }
+        //提取部门职位信息
+        int size = list.size();
+        List<Employee> list2 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Employee data = list.get(i);
+            Dept dept = deptDao.get_Info(data.getDept_id());
+            data.setDept(dept);
+            Job job = jobDao.get_Info(data.getJob_id());
+            data.setJob(job);
+            list2.add(i, data);
+        }
+        p.setData(list2);
+        return p;
+    }
 }

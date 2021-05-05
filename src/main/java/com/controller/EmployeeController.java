@@ -5,14 +5,12 @@ import com.domain.Employee;
 import com.domain.Job;
 import com.domain.User;
 import com.service.RainService;
+import com.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -39,11 +37,11 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employee/list", method = RequestMethod.GET)
     public String index(Model model, String content) {
-        List<Employee> job_list = rainservice.get_EmployeeList();
+        List<Employee> employee_list = rainservice.get_EmployeeList();
         if (content != null) {
-            job_list = rainservice.get_EmployeeLikeList(content);
+            employee_list = rainservice.get_EmployeeLikeList(content);
         }
-        model.addAttribute("list", job_list);
+        model.addAttribute("list", employee_list);
         return "employee/list";
     }
 
@@ -86,5 +84,12 @@ public class EmployeeController {
         if (id != null) {
             rainservice.delete_EmployeeInfo(id);
         }
+    }
+
+    @RequestMapping("/employee/table")
+    @ResponseBody
+    public Page<Employee> attendance_table(int page, int limit, String userName) {
+        Page<Employee> date = rainservice.employee_list(page, limit, userName);
+        return date;
     }
 }

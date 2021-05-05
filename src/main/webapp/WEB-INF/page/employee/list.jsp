@@ -35,110 +35,104 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
-    <div class="layui-row" style="" align="center">
-        <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/employee/list">
-            <input type="text" name="content" style="width:50%;" placeholder="请输入查找员工姓名" autocomplete="off"
-                   class="layui-input">
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+    <div class="demoTable" action="${ctx }/employee/table">
+        名字：
+        <div class="layui-inline">
+            <input class="layui-input" name="userName" id="userName" autocomplete="off">
+        </div>
+        <button class="layui-btn layui-btn-normal" data-type="reload">搜索</button>
     </div>
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
-                        class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th>姓名</th>
-            <th>登录名</th>
-            <th>性别</th>
-            <th>手机号码</th>
-            <th>邮箱</th>
-            <th>职位</th>
-            <th>学历</th>
-            <th>身份证号码</th>
-            <th>部门</th>
-            <th>联系地址</th>
-            <th>建档日期</th>
-            <th>操作</th>
-        </thead>
-        <tbody>
-        <c:forEach items="${requestScope.list}" var="employee" varStatus="stat">
-            <tr>
-                <td>
-                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
-                            class="layui-icon">&#xe605;</i></div>
-                </td>
-                <td>${employee.name }</td>
-                <td>${employee.login_name }</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${employee.sex == 1 }">男</c:when>
-                        <c:otherwise>女</c:otherwise>
-                    </c:choose>
-                </td>
-                <td>${employee.phone }</td>
-                <td>${employee.email }</td>
-                <td>${employee.job.name }</td>
-                <td>${employee.education }</td>
-                <td>${employee.card_id }</td>
-                <td>${employee.dept.name }</td>
-                <td>${employee.address }</td>
-                <td>${employee.create_date }</td>
-                <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
-                        <td class="td-manage">
-                            <a title="编辑" href="${ctx}/employee/add?id=${employee.id }">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a title="删除" onclick="member_del(this,'${employee.id }')" href="javascript:">
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
-                        </td>
-                    </c:when>
 
-                </c:choose>
-            </tr>
-
-        </c:forEach>
-
-        </tbody>
-    </table>
+    <table id="employee" lay-filter="test"></table>
 </div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <script>
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
+    layui.use('table', function () {
+        var table = layui.table;
+        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            if (layEvent === 'del') { //删除
+                layer.confirm('确定删除该员工信息吗？', function (index) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    $.get("${ctx}/employee/delete?id=" + data.id);//向服务端发送删除指令
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if (layEvent === 'edit') { //编辑
+                //do something
+                $.get("${ctx}/employee/add?id=" + data.id);//向服务端发送删除指令
+                //同步更新缓存对应的值
+            }
         });
+        let x = {
+            id: 1,
+            name: "技术部",
+            remark: "负责产品的设计和开发"
+        }
+        //方法级渲染
+        table.render({
+            elem: '#employee'
+            , url: '${ctx }/employee/table'
+            , limit: 5
+            , limits: [5, 10, 20]
+            , parseDate: function (reult) {
+                return
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
+            }
+            , cols: [[
+                {checkbox: true, fixed: true}
+                , {field: 'name', title: '姓名', sort: true}
+                , {field: 'login_name', title: '基本工资', sort: true}
+                , {field: 'password', title: '加班工资', sort: true}
+                , {field: 'sex', title: '性别', sort: true}
+                , {field: 'education', title: '学历', sort: true}
+                , {field: 'email', title: '邮箱', sort: true}
+                , {field: 'phone', title: '手机', sort: true}
+                , {field: 'address', title: '联系地址', sort: true}
+                , {
+                    field: 'job', title: '职位', sort: true, templet: function (date) {
+                        return date.job.name
+                    }
+                }
+                , {
+                    field: 'dept', title: '部门', sort: true, templet: function (date) {
+                        return date.dept.name
+                    }
+                }
+                , {
+                    fixed: 'right', title: '操作', width: 150, align: 'center',
+                    toolbar: '#barDemo'
+                }
+            ]]
+            , id: 'testReload'
+            , page: true
+        });
+        var $ = layui.$, active = {
+            reload: function () {
+                var nameNode = $("#userName");
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        userName: nameNode.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');// type='reload'
+            active[type] ? active[type].call(this) : '';
         });
     });
 
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            //等以后再使用异步，这里先使用
-            $.get("${ctx}/employee/delete?id=" + id);
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
-
 </script>
-<script>var _hmt = _hmt || [];
-(function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
 
 </html>

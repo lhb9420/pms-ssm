@@ -122,4 +122,6 @@ public interface RainService {
     Page<Overtime> overtime_list(int page, int limit, String day, String name);
 
     Page<User> user_list(int page, int limit, String userName);
+
+    Page<Employee> employee_list(int page, int limit, String userName);
 }
