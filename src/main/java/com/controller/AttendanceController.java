@@ -3,6 +3,7 @@ package com.controller;
 import com.domain.Attendance;
 import com.domain.User;
 import com.service.RainService;
+import com.util.Page;
 import com.util.TimeGenerate;
 import com.util.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -39,11 +41,6 @@ public class AttendanceController {
 
     @RequestMapping(value = "/attendance/list", method = RequestMethod.GET)
     public String index(Model model, String content) {
-        List<Attendance> attendance_list = rainservice.get_AttendanceList();
-        if (content != null) {
-            attendance_list = rainservice.get_AttenanceLikeList(content);
-        }
-        model.addAttribute("list", attendance_list);
         return "/attendance/list";
     }
     @RequestMapping(value = "/attendance/sign-in",method = RequestMethod.GET)
@@ -91,14 +88,21 @@ public class AttendanceController {
                 attendance.setRecord6(hour);
                 break;
         }
-        if(attendance_id!=null){
+        if (attendance_id != null) {
             attendance.setAttendance_Id(attendance_id);
             rainservice.update_AttendanceInfo(attendance);
-        }else{
-           attendance.setEmployee_id(employee_id);
-           attendance.setName(name);
-           attendance.setDay(day);
+        } else {
+            attendance.setEmployee_id(employee_id);
+            attendance.setName(name);
+            attendance.setDay(day);
             rainservice.insert_AttendanceInfo(attendance);
         }
+    }
+
+    @RequestMapping("/attendance/table")
+    @ResponseBody
+    public Page<Attendance> attendance_table(int page, int limit, String day, String name) {
+        Page<Attendance> date = rainservice.attendance_list(page, limit, day, name);
+        return date;
     }
 }

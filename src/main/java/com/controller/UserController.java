@@ -2,6 +2,7 @@ package com.controller;
 
 import com.domain.User;
 import com.service.RainService;
+import com.util.Page;
 import com.util.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -73,29 +73,27 @@ public class UserController {
 			}
 			return mv;
 		}
-		// 如果在目录下输入任何不存在的参数，则跳转到list
-		@RequestMapping(value="/user/{formName}")
-		 public String index2(@PathVariable String formName){
-			String blank = "/user/list";
-			return blank;
+
+	// 如果在目录下输入任何不存在的参数，则跳转到list
+	@RequestMapping(value = "/user/{formName}")
+	public String index2(@PathVariable String formName) {
+		String blank = "/user/list";
+		return blank;
+	}
+
+	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
+	public String index() {
+		return "user/list";
+	}
+
+	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
+	public String add(Model model, Integer id) {
+		if (id != null) {
+			User job = rainservice.get_UserInfo(id);
+			model.addAttribute("job", job);
 		}
-		@RequestMapping(value="/user/list",method=RequestMethod.GET)
-		 public String index(Model model,String content){
-			List<User> user_list = rainservice.get_UserList();
-			if (content!=null){
-				user_list = rainservice.get_UserLikeList(content);
-			}
-			model.addAttribute("list",user_list);
-			return "user/list";
-		}
-		@RequestMapping(value="/user/add",method=RequestMethod.GET)
-		 public String add(Model model,Integer id){
-			if(id!=null){
-				User job = rainservice.get_UserInfo(id);
-				model.addAttribute("job",job);
-			}
-			return "/user/add";
-		}
+		return "/user/add";
+	}
 		@RequestMapping(value="/user/add",method=RequestMethod.POST)
 		 public ModelAndView add(ModelAndView mv,@ModelAttribute User notice ,Integer id){
 			if(id!=null){
@@ -128,8 +126,15 @@ public class UserController {
 			user.setPassword(notice.getPassword());
 			user.setUsername(notice.getUsername());
 			rainservice.update_UserInfo(user);
-				session.setAttribute(Constants.USER_SESSION, user);
-				mv.setViewName("redirect:/user/myupdate");
-				return mv;
+			session.setAttribute(Constants.USER_SESSION, user);
+			mv.setViewName("redirect:/user/myupdate");
+			return mv;
 		}
+
+	@RequestMapping("/user/table")
+	@ResponseBody
+	public Page<User> attendance_table(int page, int limit, String userName) {
+		Page<User> date = rainservice.user_list(page, limit, userName);
+		return date;
+	}
 }

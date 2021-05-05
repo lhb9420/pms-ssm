@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="${ctx}/logo.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${ctx}/css/font.css">
     <link rel="stylesheet" href="${ctx}/css/xadmin.css">
+    <link rel="stylesheet" href="${ctx}/lib/layui/css/layui.css" media="all">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="${ctx}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${ctx}/js/xadmin.js"></script>
@@ -22,7 +23,6 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -30,57 +30,64 @@
         <a>
           <cite>加班信息</cite></a>
       </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="${ctx }/overtime/list" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
-    <div class="layui-row" style="" align="center">
-        <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/overtime/list">
-            <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
-            <input type="text" name="content" style="width:50%;" placeholder="请输入查找标题" autocomplete="off"
-                   class="layui-input">
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+    <div class="demoTable">
+        时间：
+        <div class="layui-input-inline">
+            <input type="date" id="date" name="day"/>
+        </div>
+        员工姓名：
+        <div class="layui-inline">
+            <input class="layui-input" name="name" id="name" autocomplete="off">
+        </div>
+        <button class="layui-btn layui-btn-normal" data-type="reload">搜索</button>
     </div>
-
-
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i
-                        class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th>ID</th>
-            <th>姓名</th>
-            <th>加班时间</th>
-            <th>上班打卡时间</th>
-            <th>下班打卡时间</th>
-        </thead>
-        <tbody>
-        <c:forEach items="${requestScope.list}" var="overtime" varStatus="stat">
-            <tr>
-                <td>
-                    <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i
-                            class="layui-icon">&#xe605;</i></div>
-                </td>
-                <td>${stat.count}</td>
-                <td>${overtime.name}</td>
-                <td>${overtime.day }</td>
-                <td>${overtime.record1 }</td>
-                <td>${overtime.record2 }</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-
+    <table class="layui-hide" id="LAY_table_user" lay-filter="overtime"></table>
 </div>
-<script>var _hmt = _hmt || [];
-(function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
-
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user'
+            , url: '${ctx }/overtime/table'
+            , limit: 5
+            , limits: [5, 10, 20]
+            , cols: [[
+                {checkbox: true, fixed: true}
+                , {field: 'name', title: '姓名', sort: true}
+                , {field: 'day', title: '加班时间', sort: true}
+                , {field: 'record1', title: '上班打开时间', sort: true}
+                , {field: 'record2', title: '下班打卡时间', sort: true}
+            ]]
+            , id: 'testReload'
+            , page: true
+        });
+        var $ = layui.$, active = {
+            reload: function () {
+                var idNode = $('#date');
+                var name = $('#name');
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        day: idNode.val(),
+                        name: name.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');// type='reload'
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
 </html>

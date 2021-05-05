@@ -1,6 +1,7 @@
 package com.controller;
 
-import com.domain.*;
+import com.domain.Employee;
+import com.domain.Salary;
 import com.service.RainService;
 import com.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class SalaryController {
     @RequestMapping("/salary/table")
     @ResponseBody
     public Page<Salary> salary_table(int page, int limit, String userName) {
-        Page<Salary> date = rainservice.list(page, limit, userName);
+        Page<Salary> date = rainservice.salary_list(page, limit, userName);
         return date;
     }
 

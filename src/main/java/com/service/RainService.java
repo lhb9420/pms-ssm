@@ -113,7 +113,13 @@ public interface RainService {
 
     User get_UserInfoByEmployeeId(Integer id);
 
-    Page<Salary> list(int page, int limit,String userName);
+    Page<Salary> salary_list(int page, int limit, String userName);
 
     void delete_salary(Integer salary_id);
+
+    Page<Attendance> attendance_list(int page, int limit, String day, String name);
+
+    Page<Overtime> overtime_list(int page, int limit, String day, String name);
+
+    Page<User> user_list(int page, int limit, String userName);
 }

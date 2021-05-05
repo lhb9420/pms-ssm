@@ -410,7 +410,7 @@ public class RainServiceImpl implements RainService {
     }
 
     @Override
-    public Page<Salary> list(int page, int limit, String name) {
+    public Page<Salary> salary_list(int page, int limit, String name) {
         //计算起始索引
         int start = limit * (page - 1);
         List<Salary> list;
@@ -430,5 +430,66 @@ public class RainServiceImpl implements RainService {
     @Override
     public void delete_salary(Integer salary_id) {
         salaryDao.deleteById(salary_id);
+    }
+
+    @Override
+    public Page<Attendance> attendance_list(int page, int limit, String day, String name) {
+        //计算起始索引
+        int start = limit * (page - 1);
+        List<Attendance> list;
+        Page<Attendance> p = new Page<>();
+        if (day == null && name == null) {
+            list = attendanceDao.get_list(start, limit);
+            p.setCount(attendanceDao.get_List().size());
+        } else if (day == null && name != null) {
+            list = attendanceDao.getListByName(start, limit, name);
+            p.setCount(attendanceDao.get_LikeList(name).size());
+        } else if (day != null && name == null) {
+            list = attendanceDao.getListByDay(start, limit, day);
+            p.setCount(attendanceDao.get_DayLikeList(day).size());
+        } else {
+            list = attendanceDao.getListByNameAndDay(start, limit, name, day);
+            p.setCount(attendanceDao.get_NameDayLikeList(name, day).size());
+        }
+        p.setData(list);
+        return p;
+    }
+
+    @Override
+    public Page<Overtime> overtime_list(int page, int limit, String day, String name) {
+        Page<Attendance> attendancePage = attendance_list(page, limit, day, name);
+        List<Overtime> list = new ArrayList<>();
+        for (Attendance date : attendancePage.getData()) {
+            list.add(new Overtime(date.getName(), date.getDay(), date.getRecord5(), date.getRecord6()));
+        }
+        Page<Overtime> p = new Page<>();
+        p.setData(list);
+        if (day == null && name == null) {
+            p.setCount(attendanceDao.get_List().size());
+        } else if (day == null && name != null) {
+            p.setCount(attendanceDao.get_LikeList(name).size());
+        } else if (day != null && name == null) {
+            p.setCount(attendanceDao.get_DayLikeList(day).size());
+        } else {
+            p.setCount(attendanceDao.get_NameDayLikeList(name, day).size());
+        }
+        return p;
+    }
+
+    @Override
+    public Page<User> user_list(int page, int limit, String userName) {
+        //计算起始索引
+        int start = limit * (page - 1);
+        Page<User> p = new Page<>();
+        List<User> list = new ArrayList<>();
+        if (userName == null) {
+            list = userdao.getList(start, limit);
+            p.setCount(userdao.get_List().size());
+        } else if (userName != null) {
+            list = userdao.getListByName(start, limit, userName);
+            p.setCount(userdao.get_LikeList(userName).size());
+        }
+        p.setData(list);
+        return p;
     }
 }
