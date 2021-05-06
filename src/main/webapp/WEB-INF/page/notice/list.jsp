@@ -31,7 +31,7 @@
           <cite>公告信息</cite></a>
       </span>
     <button type="button" onclick="location.href='${ctx}/document/add'" class="layui-btn layui-btn-small"
-            style="line-height:1.6em;margin-top:3px;float:innert;margin-left:75%;;"><i class="layui-icon"></i>增加
+            style="line-height:1.6em;margin-top:3px;margin-left:75%;;"><i class="layui-icon"></i>增加
     </button>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="${ctx }/notice/list"
        title="刷新">
@@ -40,18 +40,11 @@
 <div class="x-body">
     <div class="layui-row" style="" align="center">
         <form class="layui-form layui-col-md12 x-so" method="get" action="${ctx }/notice/list">
-            <!-- <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end"> -->
             <input type="text" name="content" style="width:50%;" placeholder="请输入查找标题" autocomplete="off"
                    class="layui-input">
             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
-    <%-- <xblock>
-<!--        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
-      <button class="layui-btn" onclick="x_admin_show('添加用户','${ctx}/dept/add')"><i class="layui-icon"></i>添加</button>
-      <span class="x-right" style="line-height:40px">共有数据：88 条</span>
-    </xblock> --%>
 
 
     <table class="layui-table">
@@ -86,7 +79,7 @@
                             <a title="编辑" href="${ctx}/notice/add?id=${notice.id }">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="删除" onclick="member_del(this,'${notice.id }')" href="javascript:;">
+                            <a title="删除" onclick="member_del(this,'${notice.id }')" href="javascript:">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
                         </td>
@@ -99,16 +92,6 @@
 
         </tbody>
     </table>
-    <!--  <div class="page">
-       <div>
-         <a class="prev" href="">&lt;&lt;</a>
-         <a class="num" href="">1</a>
-         <span class="current">2</span>
-         <a class="num" href="">3</a>
-         <a class="num" href="">489</a>
-         <a class="next" href="">&gt;&gt;</a>
-       </div>
-     </div> -->
 
 </div>
 <script>

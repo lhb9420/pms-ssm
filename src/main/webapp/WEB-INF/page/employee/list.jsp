@@ -65,15 +65,16 @@
                 });
             } else if (layEvent === 'edit') { //编辑
                 //do something
-                $.get("${ctx}/employee/add?id=" + data.id);//向服务端发送删除指令
-                //同步更新缓存对应的值
+                layer.open({
+                    type: 2,
+                    shadeClose: true,
+                    /* area: ['380px', '90%'],*/
+                    area: ['600px', '480px'],
+                    content: "${ctx}/employee/add?id=" + data.id,
+                });
+
             }
         });
-        let x = {
-            id: 1,
-            name: "技术部",
-            remark: "负责产品的设计和开发"
-        }
         //方法级渲染
         table.render({
             elem: '#employee'
@@ -81,17 +82,17 @@
             , limit: 5
             , limits: [5, 10, 20]
             , parseDate: function (reult) {
-                return
+
 
             }
             , cols: [[
                 {checkbox: true, fixed: true}
-                , {field: 'name', title: '姓名', sort: true}
-                , {field: 'login_name', title: '基本工资', sort: true}
-                , {field: 'password', title: '加班工资', sort: true}
-                , {field: 'sex', title: '性别', sort: true}
-                , {field: 'education', title: '学历', sort: true}
-                , {field: 'email', title: '邮箱', sort: true}
+                , {field: 'name', title: '姓名', width: 80, sort: true}
+                , {field: 'login_name', title: '登录名', width: 60, sort: true}
+                , {field: 'password', title: '密码', width: 60, sort: true}
+                , {field: 'sex', title: '性别', width: 50, sort: true}
+                , {field: 'education', title: '学历', width: 60, sort: true}
+                , {field: 'email', title: '邮箱', width: 170, sort: true}
                 , {field: 'phone', title: '手机', sort: true}
                 , {field: 'address', title: '联系地址', sort: true}
                 , {
@@ -100,7 +101,7 @@
                     }
                 }
                 , {
-                    field: 'dept', title: '部门', sort: true, templet: function (date) {
+                    field: 'dept', title: '部门', width: 80, sort: true, templet: function (date) {
                         return date.dept.name
                     }
                 }
