@@ -1,7 +1,9 @@
 package com.service;
 
 import com.domain.*;
-import com.util.Page;
+import com.util.jsonClass.EchartsCategoryData;
+import com.util.jsonClass.EchartsPieData;
+import com.util.jsonClass.Page;
 
 import java.util.List;
 
@@ -124,4 +126,8 @@ public interface RainService {
     Page<User> user_list(int page, int limit, String userName);
 
     Page<Employee> employee_list(int page, int limit, String userName);
+
+    Page<EchartsPieData> employee_count();
+
+    Page<EchartsCategoryData> attendance_analyse();
 }

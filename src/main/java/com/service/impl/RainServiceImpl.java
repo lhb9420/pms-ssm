@@ -3,7 +3,10 @@ package com.service.impl;
 import com.dao.*;
 import com.domain.*;
 import com.service.RainService;
-import com.util.Page;
+import com.util.TimeGenerate;
+import com.util.jsonClass.EchartsCategoryData;
+import com.util.jsonClass.EchartsPieData;
+import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -518,5 +521,69 @@ public class RainServiceImpl implements RainService {
         }
         p.setData(list2);
         return p;
+    }
+
+    @Override
+    public Page<EchartsPieData> employee_count() {
+        Page<EchartsPieData> p = new Page<>();
+        List<EchartsPieData> list = new ArrayList<>();
+        List<Dept> deptList = deptDao.selectAllDept();
+        List<Employee> employeeList = employeedao.get_List();
+        for (Dept dept : deptList) {
+            String deptname = dept.getName();
+            int size = 0;
+            for (Employee employee : employeeList) {
+                if (employee.getDept_id() == dept.getId()) {
+                    size++;
+                }
+            }
+            list.add(new EchartsPieData(deptname, size));
+        }
+        p.setData(list);
+        return p;
+    }
+
+    @Override
+    public Page<EchartsCategoryData> attendance_analyse() {
+        String[] cloum = {"上午上班", "上午下班", "下午上班", "下午下班"};
+        Page<EchartsCategoryData> page = new Page<>();
+        List<EchartsCategoryData> echartsCategoryDataList = new ArrayList<>();
+        String day = TimeGenerate.getday();
+        List<Attendance> attendanceList = attendanceDao.get_DayLikeList(day);
+        int p = 0, q = employeedao.get_List().size();
+        for (int i = 0; i < 4; i++) {
+            p = 0;
+            if (i == 0) {
+                for (Attendance data : attendanceList) {
+                    if (data.getRecord1() != null) {
+                        p++;
+                    }
+                }
+                echartsCategoryDataList.add(new EchartsCategoryData(cloum[i], p, q, q - p));
+            } else if (i == 1) {
+                for (Attendance data : attendanceList) {
+                    if (data.getRecord2() != null) {
+                        p++;
+                    }
+                }
+                echartsCategoryDataList.add(new EchartsCategoryData(cloum[i], p, q, q - p));
+            } else if (i == 2) {
+                for (Attendance data : attendanceList) {
+                    if (data.getRecord3() != null) {
+                        p++;
+                    }
+                }
+                echartsCategoryDataList.add(new EchartsCategoryData(cloum[i], p, q, q - p));
+            } else if (i == 3) {
+                for (Attendance data : attendanceList) {
+                    if (data.getRecord4() != null) {
+                        p++;
+                    }
+                }
+                echartsCategoryDataList.add(new EchartsCategoryData(cloum[i], p, q, q - p));
+            }
+        }
+        page.setData(echartsCategoryDataList);
+        return page;
     }
 }

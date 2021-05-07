@@ -3,7 +3,7 @@ package com.controller;
 import com.domain.Employee;
 import com.domain.Salary;
 import com.service.RainService;
-import com.util.Page;
+import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

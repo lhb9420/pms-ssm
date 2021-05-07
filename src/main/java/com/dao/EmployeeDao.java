@@ -49,4 +49,5 @@ public interface EmployeeDao {
 
     @Select("select * from " + EMPLOYEETABLE + "	 where name like CONCAT('%',#{userName},'%') limit #{start},#{limit}")
     List<Employee> getListByName(@Param("start") int start, @Param("limit") int limit, @Param("userName") String userName);
+
 }

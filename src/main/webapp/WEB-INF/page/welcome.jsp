@@ -13,9 +13,14 @@
     <link rel="shortcut icon" href="${ctx}/logo.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${ctx}/css/font.css">
     <link rel="stylesheet" href="${ctx}/css/xadmin.css">
+    <link rel="stylesheet" href="${ctx}/lib/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
 </head>
 <body>
 <div class="x-body layui-anim layui-anim-up">
+
     <blockquote class="layui-elem-quote">欢迎你：
         <span class="x-red">${sessionScope.user_session.username }</span>
         <div id="datetime">
@@ -25,66 +30,79 @@
         </div>
     </blockquote>
     <fieldset class="layui-elem-field">
-        <legend>今日考勤分析</legend>
+        <legend>部门员工统计</legend>
         <div class="layui-field-box">
-            <div class="layui-col-md12">
-                <div class="layui-card">
-                    <div class="layui-card-body">
-                        <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside"
-                             lay-arrow="none" style="width: 100%; height: 90px;">
-                            <div carousel-item="">
-                                <ul class="layui-row layui-col-space10 layui-this">
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="enployee_count" style="text-align:center;width: 100%;height:250px;"></div>
         </div>
     </fieldset>
     <fieldset class="layui-elem-field">
-        <legend>系统信息</legend>
+        <legend>今日考勤分析</legend>
         <div class="layui-field-box">
-            <table class="layui-table">
-                <tbody>
-                <tr>
-                    <th>系统版本</th>
-                    <td>2.0</td>
-                </tr>
-                <tr>
-                    <th>操作系统</th>
-                    <td>Windows</td>
-                </tr>
-                <tr>
-                    <th>服务器</th>
-                    <td>Tomcat 8.0</td>
-                </tr>
-                <tr>
-                    <th>Java版本</th>
-                    <td>1.8.0</td>
-                </tr>
-                <tr>
-                    <th>MySQL版本</th>
-                    <td>8.0</td>
-                </tr>
-                <tr>
-                    <th>开发平台</th>
-                    <td>IDEA</td>
-                </tr>
-                </tbody>
-            </table>
+            <div id="attendance" style="text-align:center;width: 100%;height:250px;"></div>
         </div>
     </fieldset>
 </div>
-<script>
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('enployee_count'));
+    $.ajax({
+        contentType: "application/json",
+        type: "GET",
+        url: "${ctx}/index/employee_count",
+        dataType: "json",
+        success: function (data) {
+            myChart.setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                },
+                series: [
+                    {
+                        name: '部门员工',
+                        type: 'pie',    // 设置图表类型为饼图
+                        radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                        data: data.data,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            })
+        }
+    });
+</script>
+<script type="text/javascript">
+    var myChart1 = echarts.init(document.getElementById('attendance'));
+    $.ajax({
+        contentType: "application/json",
+        type: "GET",
+        url: "${ctx}/index/attendance_analyse",
+        dataType: "json",
+        success: function (data1) {
+            myChart1.setOption({
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    dimensions: ['product', '实到', '应到', '缺勤'],
+                    source: data1.data
+                },
+                xAxis: {type: 'category'},
+                yAxis: {},
+                series: [
+                    {type: 'bar'},
+                    {type: 'bar'},
+                    {type: 'bar'}
+                ]
+            })
+        }
+    });
 </script>
 </body>
 </html>

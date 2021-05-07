@@ -69,7 +69,7 @@
                     type: 2,
                     shadeClose: true,
                     /* area: ['380px', '90%'],*/
-                    area: ['600px', '480px'],
+                    area: ['600px', '460px'],
                     content: "${ctx}/employee/add?id=" + data.id,
                 });
 

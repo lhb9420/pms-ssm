@@ -2,8 +2,10 @@ package com.controller;
 
 import com.domain.User;
 import com.service.RainService;
-import com.util.Page;
 import com.util.common.Constants;
+import com.util.jsonClass.EchartsCategoryData;
+import com.util.jsonClass.EchartsPieData;
+import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,126 +17,147 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
-	@Autowired
-	@Qualifier("RainService")
-	private RainService rainservice;
-	// 如果在目录下输入为空，则跳转到指定链接
-		@RequestMapping(value="/user/")
-		 public ModelAndView index2(ModelAndView mv){
-			mv.setViewName("/user/list");
-			return mv;
-		}
-//		退出功能
-		@RequestMapping(value="/user/logout")
-		 public ModelAndView logout(ModelAndView mv, HttpSession session){
-			session.setAttribute(Constants.USER_SESSION, null);
-			session.setAttribute("tip", null);
-			mv.setViewName("redirect:/index");
-			
-			return mv;
-		}
-		@RequestMapping(value="/login")
-		 public ModelAndView login(@RequestParam("loginname") String loginname,
-				 @RequestParam("password") String password,@RequestParam("tip") String tip,
-				 HttpSession session,
-				 ModelAndView mv){
-			// 调用业务逻辑组件判断用户是否可以登录
-			boolean flag = false;
-			if("1".equals(tip)) {
-				User user = rainservice.login(loginname, password);
-				if(user!=null){
-					// 将用户保存到HttpSession当中
-					session.setAttribute(Constants.USER_SESSION, user);
-					session.setAttribute("tip", "1");
-					// 客户端跳转到main页面
-					mv.setViewName("redirect:/index");
-				}else{
-					// 设置登录失败提示信息
-					mv.addObject("message", "登录名或密码错误!请重新输入");
-					// 服务器内部跳转到登录页面
-					mv.setViewName("forward:/loginForm");
-				}
-			}else {
-				User user = rainservice.login(loginname, password);
-				if(user!=null){
-					// 将用户保存到HttpSession当中
-					session.setAttribute(Constants.USER_SESSION, user);
-					session.setAttribute("tip", "2");
-					// 客户端跳转到main页面
-					mv.setViewName("redirect:/indexcustomer/");
-				}else{
-					// 设置登录失败提示信息
-					System.out.println("设置登录失败提示信息");
-					mv.addObject("message", "登录名或密码错误!请重新输入");
-					// 服务器内部跳转到登录页面
-					mv.setViewName("forward:/loginForm");
-				}
+    @Autowired
+    @Qualifier("RainService")
+    private RainService rainservice;
 
-			}
-			return mv;
-		}
+    // 如果在目录下输入为空，则跳转到指定链接
+    @RequestMapping(value = "/user/")
+    public ModelAndView index2(ModelAndView mv) {
+        mv.setViewName("/user/list");
+        return mv;
+    }
 
-	// 如果在目录下输入任何不存在的参数，则跳转到list
-	@RequestMapping(value = "/user/{formName}")
-	public String index2(@PathVariable String formName) {
-		String blank = "/user/list";
-		return blank;
-	}
+    //		退出功能
+    @RequestMapping(value = "/user/logout")
+    public ModelAndView logout(ModelAndView mv, HttpSession session) {
+        session.setAttribute(Constants.USER_SESSION, null);
+        session.setAttribute("tip", null);
+        mv.setViewName("redirect:/index");
 
-	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
-	public String index() {
-		return "user/list";
-	}
+        return mv;
+    }
 
-	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
-	public String add(Model model, Integer id) {
-		if (id != null) {
-			User job = rainservice.get_UserInfo(id);
-			model.addAttribute("job", job);
-		}
-		return "/user/add";
-	}
-		@RequestMapping(value="/user/add",method=RequestMethod.POST)
-		 public ModelAndView add(ModelAndView mv,@ModelAttribute User notice ,Integer id){
-			if(id!=null){
-				rainservice.update_UserInfo(notice);
-			}else{
-				rainservice.insert_UserInfo(notice);
-			}
-			mv.setViewName("redirect:/user/list");
-			return mv;
-		}
-		@RequestMapping(value="/user/delete",method=RequestMethod.GET)
-		 public void delete(Integer id){
-			System.out.println(id);
-			if(id!=null){
-				rainservice.delete_UserInfo(id);
-			}
-		}
-//		管理员自己修改密码时跳转的页面 
-		@RequestMapping(value="/user/myupdate",method=RequestMethod.GET)
-		 public String update(Model model,HttpSession session){
-			User user = (User) session.getAttribute(Constants.USER_SESSION);
-			model.addAttribute("job",user);
-			return "/user/myupdate";
-		}
-		@RequestMapping(value="/user/myupdate",method=RequestMethod.POST)
-		 public ModelAndView update(ModelAndView mv,Model model,HttpSession session,User notice){
-			User user = (User) session.getAttribute(Constants.USER_SESSION);
+    @RequestMapping(value = "/login")
+    public ModelAndView login(@RequestParam("loginname") String loginname,
+                              @RequestParam("password") String password, @RequestParam("tip") String tip,
+                              HttpSession session,
+                              ModelAndView mv) {
+        // 调用业务逻辑组件判断用户是否可以登录
+        boolean flag = false;
+        if ("1".equals(tip)) {
+            User user = rainservice.login(loginname, password);
+            if (user != null) {
+                // 将用户保存到HttpSession当中
+                session.setAttribute(Constants.USER_SESSION, user);
+                session.setAttribute("tip", "1");
+                // 客户端跳转到main页面
+                mv.setViewName("redirect:/index");
+            } else {
+                // 设置登录失败提示信息
+                mv.addObject("message", "登录名或密码错误!请重新输入");
+                // 服务器内部跳转到登录页面
+                mv.setViewName("forward:/loginForm");
+            }
+        } else {
+            User user = rainservice.login(loginname, password);
+            if (user != null) {
+                // 将用户保存到HttpSession当中
+                session.setAttribute(Constants.USER_SESSION, user);
+                session.setAttribute("tip", "2");
+                // 客户端跳转到main页面
+                mv.setViewName("redirect:/indexcustomer/");
+            } else {
+                // 设置登录失败提示信息
+                System.out.println("设置登录失败提示信息");
+                mv.addObject("message", "登录名或密码错误!请重新输入");
+                // 服务器内部跳转到登录页面
+                mv.setViewName("forward:/loginForm");
+            }
+
+        }
+        return mv;
+    }
+
+    // 如果在目录下输入任何不存在的参数，则跳转到list
+    @RequestMapping(value = "/user/{formName}")
+    public String index2(@PathVariable String formName) {
+        String blank = "/user/list";
+        return blank;
+    }
+
+    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
+    public String index() {
+        return "user/list";
+    }
+
+    @RequestMapping(value = "/user/add", method = RequestMethod.GET)
+    public String add(Model model, Integer id) {
+        if (id != null) {
+            User job = rainservice.get_UserInfo(id);
+            model.addAttribute("job", job);
+        }
+        return "/user/add";
+    }
+
+    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+    public ModelAndView add(ModelAndView mv, @ModelAttribute User notice, Integer id) {
+        if (id != null) {
+            rainservice.update_UserInfo(notice);
+        } else {
+            rainservice.insert_UserInfo(notice);
+        }
+        mv.setViewName("redirect:/user/list");
+        return mv;
+    }
+
+    @RequestMapping(value = "/user/delete", method = RequestMethod.GET)
+    public void delete(Integer id) {
+        System.out.println(id);
+        if (id != null) {
+            rainservice.delete_UserInfo(id);
+        }
+    }
+
+    //		管理员自己修改密码时跳转的页面
+    @RequestMapping(value = "/user/myupdate", method = RequestMethod.GET)
+    public String update(Model model, HttpSession session) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        model.addAttribute("job", user);
+        return "/user/myupdate";
+    }
+
+    @RequestMapping(value = "/user/myupdate", method = RequestMethod.POST)
+    public ModelAndView update(ModelAndView mv, Model model, HttpSession session, User notice) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
 //			如果是自己修改自己的密码，则更新session
-			user.setLoginname(notice.getLoginname());
-			user.setPassword(notice.getPassword());
-			user.setUsername(notice.getUsername());
-			rainservice.update_UserInfo(user);
-			session.setAttribute(Constants.USER_SESSION, user);
-			mv.setViewName("redirect:/user/myupdate");
-			return mv;
-		}
+        user.setLoginname(notice.getLoginname());
+        user.setPassword(notice.getPassword());
+        user.setUsername(notice.getUsername());
+        rainservice.update_UserInfo(user);
+        session.setAttribute(Constants.USER_SESSION, user);
+        mv.setViewName("redirect:/user/myupdate");
+        return mv;
+    }
 
-	@RequestMapping("/user/table")
-	@ResponseBody
-	public Page<User> attendance_table(int page, int limit, String userName) {
-		Page<User> date = rainservice.user_list(page, limit, userName);
-		return date;
-	}
+    @RequestMapping("/user/table")
+    @ResponseBody
+    public Page<User> attendance_table(int page, int limit, String userName) {
+        Page<User> date = rainservice.user_list(page, limit, userName);
+        return date;
+    }
+
+    @RequestMapping("/index/employee_count")
+    @ResponseBody
+    public Page<EchartsPieData> indexemployee_count() {
+        Page<EchartsPieData> date = rainservice.employee_count();
+        return date;
+    }
+
+    @RequestMapping("/index/attendance_analyse")
+    @ResponseBody
+    public Page<EchartsCategoryData> indexattendance_analyse() {
+        Page<EchartsCategoryData> date = rainservice.attendance_analyse();
+        return date;
+    }
 }
