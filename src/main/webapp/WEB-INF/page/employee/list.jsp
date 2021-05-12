@@ -86,14 +86,13 @@
 
             }
             , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'name', title: '姓名', width: 80, sort: true}
-                , {field: 'login_name', title: '登录名', width: 60, sort: true}
-                , {field: 'password', title: '密码', width: 60, sort: true}
-                , {field: 'sex', title: '性别', width: 50, sort: true}
+                {field: 'name', title: '姓名', width: 80, sort: true}
+                , {field: 'login_name', title: '登录名', width: 90, sort: true}
+                , {field: 'password', title: '密码', width: 80, sort: true}
+                , {field: 'sex', title: '性别', width: 80, sort: true}
                 , {field: 'education', title: '学历', width: 60, sort: true}
                 , {field: 'email', title: '邮箱', width: 170, sort: true}
-                , {field: 'phone', title: '手机', sort: true}
+                , {field: 'phone', title: '手机', width: 120, sort: true}
                 , {field: 'address', title: '联系地址', sort: true}
                 , {
                     field: 'job', title: '职位', sort: true, templet: function (date) {
@@ -106,7 +105,7 @@
                     }
                 }
                 , {
-                    fixed: 'right', title: '操作', width: 150, align: 'center',
+                    title: '操作', width: 150, align: 'center',
                     toolbar: '#barDemo'
                 }
             ]]

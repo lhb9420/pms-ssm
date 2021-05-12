@@ -129,5 +129,5 @@ public interface RainService {
 
     Page<EchartsPieData> employee_count();
 
-    Page<EchartsCategoryData> attendance_analyse();
+    Page<EchartsCategoryData> attendance_analyse(String date);
 }

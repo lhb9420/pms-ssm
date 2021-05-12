@@ -544,11 +544,16 @@ public class RainServiceImpl implements RainService {
     }
 
     @Override
-    public Page<EchartsCategoryData> attendance_analyse() {
+    public Page<EchartsCategoryData> attendance_analyse(String date) {
         String[] cloum = {"上午上班", "上午下班", "下午上班", "下午下班"};
         Page<EchartsCategoryData> page = new Page<>();
         List<EchartsCategoryData> echartsCategoryDataList = new ArrayList<>();
-        String day = TimeGenerate.getday();
+        String day;
+        if (date == null) {
+            day = TimeGenerate.getday();
+        } else {
+            day = date;
+        }
         List<Attendance> attendanceList = attendanceDao.get_DayLikeList(day);
         int p = 0, q = employeedao.get_List().size();
         for (int i = 0; i < 4; i++) {

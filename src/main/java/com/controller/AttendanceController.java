@@ -105,4 +105,10 @@ public class AttendanceController {
         Page<Attendance> date = rainservice.attendance_list(page, limit, day, name);
         return date;
     }
+
+    @RequestMapping(value = "/attendance/analyse_onday")
+    public String analyse_onday() {
+        String blank = "/attendance/analyse";
+        return blank;
+    }
 }

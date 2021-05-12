@@ -126,6 +126,12 @@
                             <cite>考勤记录</cite>
                         </a>
                     </li>
+                    <li>
+                        <a _href="${ctx }/attendance/analyse_onday">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>考勤分析</cite>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="open">

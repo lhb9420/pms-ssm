@@ -61,8 +61,7 @@
             , limit: 5
             , limits: [5, 10, 20]
             , cols: [[
-                {checkbox: true, fixed: true}
-                , {field: 'name', title: '姓名', sort: true}
+                {field: 'name', title: '姓名', sort: true}
                 , {field: 'day', title: '时间', sort: true}
                 , {field: 'record1', title: '上午上班时间', sort: true}
                 , {field: 'record2', title: '上午下班时间', sort: true}

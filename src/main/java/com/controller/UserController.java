@@ -156,8 +156,8 @@ public class UserController {
 
     @RequestMapping("/index/attendance_analyse")
     @ResponseBody
-    public Page<EchartsCategoryData> indexattendance_analyse() {
-        Page<EchartsCategoryData> date = rainservice.attendance_analyse();
-        return date;
+    public Page<EchartsCategoryData> indexattendance_analyse(String date) {
+        Page<EchartsCategoryData> data = rainservice.attendance_analyse(date);
+        return data;
     }
 }
