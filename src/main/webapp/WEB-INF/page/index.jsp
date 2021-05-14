@@ -85,7 +85,27 @@
                     </li>
                 </ul>
             </li>
-
+            <li>
+                <a href="javascript:">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>职位管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="${ctx }/job/list">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>职位列表</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="${ctx }/job/add">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>添加职位</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li>
                 <a href="javascript:">
                     <i class="iconfont">&#xe726;</i>
