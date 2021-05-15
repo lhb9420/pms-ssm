@@ -45,4 +45,7 @@ public interface UserDao {
 
 	@Select("select * from " + USERTABLE + "  where loginname like CONCAT('%',#{userName},'%') limit #{start},#{limit}")
 	List<User> getListByName(@Param("start") int start, @Param("limit") int limit, @Param("userName") String userName);
+
+	@Select("select * from " + USERTABLE + "  where loginname = #{loginname}")
+	User get_UserByName(String loginname);
 }

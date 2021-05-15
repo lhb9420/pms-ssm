@@ -33,48 +33,36 @@ public class UserController {
     public ModelAndView logout(ModelAndView mv, HttpSession session) {
         session.setAttribute(Constants.USER_SESSION, null);
         session.setAttribute("tip", null);
-        mv.setViewName("redirect:/index");
-
+        mv.setViewName("loginForm");
         return mv;
     }
 
     @RequestMapping(value = "/login")
     public ModelAndView login(@RequestParam("loginname") String loginname,
-                              @RequestParam("password") String password, @RequestParam("tip") String tip,
+                              @RequestParam("password") String password, @RequestParam("tip") int tip,
                               HttpSession session,
                               ModelAndView mv) {
         // 调用业务逻辑组件判断用户是否可以登录
-        boolean flag = false;
-        if ("1".equals(tip)) {
-            User user = rainservice.login(loginname, password);
-            if (user != null) {
+        User user = rainservice.login(loginname, password);
+        if (user != null) {
+            if (rainservice.get_UserByName(loginname).getStatus() >= tip) {
                 // 将用户保存到HttpSession当中
                 session.setAttribute(Constants.USER_SESSION, user);
-                session.setAttribute("tip", "1");
-                // 客户端跳转到main页面
-                mv.setViewName("redirect:/index");
-            } else {
-                // 设置登录失败提示信息
-                mv.addObject("message", "登录名或密码错误!请重新输入");
-                // 服务器内部跳转到登录页面
-                mv.setViewName("forward:/loginForm");
+                session.setAttribute("tip", tip);
+                if (tip == 3) {
+                    mv.setViewName("redirect:index3");
+                } else if (tip == 2) {
+                    mv.setViewName("redirect:index2");
+                } else if (tip == 1) {
+                    mv.setViewName("redirect:index1");
+                } else {
+                    mv.setViewName("forward:/loginForm");
+                }
             }
         } else {
-            User user = rainservice.login(loginname, password);
-            if (user != null) {
-                // 将用户保存到HttpSession当中
-                session.setAttribute(Constants.USER_SESSION, user);
-                session.setAttribute("tip", "2");
-                // 客户端跳转到main页面
-                mv.setViewName("redirect:/indexcustomer/");
-            } else {
-                // 设置登录失败提示信息
-                System.out.println("设置登录失败提示信息");
-                mv.addObject("message", "登录名或密码错误!请重新输入");
-                // 服务器内部跳转到登录页面
-                mv.setViewName("forward:/loginForm");
-            }
-
+            mv.addObject("message", "登录名或密码错误!请重新输入");
+            // 服务器内部跳转到登录页面
+            mv.setViewName("forward:/loginForm");
         }
         return mv;
     }

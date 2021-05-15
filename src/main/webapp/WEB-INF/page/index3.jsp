@@ -24,7 +24,7 @@
 <body>
 <!-- 顶部开始 -->
 <div class="container">
-    <div class="logo"><a href="./index.html">人事管理系统</a></div>
+    <div class="logo"><a href="./index3.html">人事管理系统</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
@@ -34,7 +34,6 @@
             <a href="javascript:">${sessionScope.user_session.username }</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="x_admin_show('个人信息','${ctx }/user/myupdate')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','${ctx}/user/logout')">切换帐号</a></dd>
                 <dd><a href="${ctx}/user/logout">退出</a></dd>
             </dl>
         </li>
@@ -42,9 +41,6 @@
     </ul>
 
 </div>
-<!-- 顶部结束 -->
-<!-- 中部开始 -->
-<!-- 左侧菜单开始 -->
 <div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
@@ -59,7 +55,6 @@
                         <a _href="${ctx }/user/list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>用户列表</cite>
-
                         </a>
                     </li>
                 </ul>
@@ -235,9 +230,6 @@
         </ul>
     </div>
 </div>
-<!-- <div class="x-slide_left"></div> -->
-<!-- 左侧菜单结束 -->
-<!-- 右侧主体开始 -->
 <div class="page-content">
     <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
         <ul class="layui-tab-title">

@@ -69,15 +69,9 @@
                 <td>${stat.count}</td>
                 <td>${notice.name }</td>
                 <td>${notice.remark }</td>
-
-                <!--  <td class="td-status">
-                   <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td> -->
                 <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
+                    <c:when test="${sessionScope.tip  == 3 }">
                         <td class="td-manage">
-                            <!--  <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                               <i class="layui-icon">&#xe601;</i>
-                             </a> -->
 
                             <a title="编辑" onclick="x_admin_show('编辑','${ctx}/dept/add?id=${notice.id }');"
                                href="javascript:">

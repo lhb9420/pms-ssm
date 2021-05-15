@@ -591,4 +591,9 @@ public class RainServiceImpl implements RainService {
         page.setData(echartsCategoryDataList);
         return page;
     }
+
+    @Override
+    public User get_UserByName(String loginname) {
+        return userdao.get_UserByName(loginname);
+    }
 }

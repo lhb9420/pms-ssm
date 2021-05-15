@@ -78,7 +78,7 @@
                     </c:choose>
                 </td>
                 <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
+                    <c:when test="${sessionScope.tip  == 3 }">
                         <c:choose>
                             <c:when test="${leave.enable == false }">
                                 <td class="td-manage">

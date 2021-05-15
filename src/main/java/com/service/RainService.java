@@ -130,4 +130,6 @@ public interface RainService {
     Page<EchartsPieData> employee_count();
 
     Page<EchartsCategoryData> attendance_analyse(String date);
+
+    User get_UserByName(String loginname);
 }

@@ -74,7 +74,7 @@
                 <td>${notice.create_date }</td>
                 <td>${notice.name }</td>
                 <c:choose>
-                    <c:when test="${sessionScope.tip  == 1 }">
+                    <c:when test="${sessionScope.tip  == 3 }">
                         <td class="td-manage">
                             <a title="编辑" href="${ctx}/notice/add?id=${notice.id }">
                                 <i class="layui-icon">&#xe642;</i>
@@ -86,10 +86,7 @@
                     </c:when>
                 </c:choose>
             </tr>
-
         </c:forEach>
-
-
         </tbody>
     </table>
 
