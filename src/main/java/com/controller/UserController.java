@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login")
-    public ModelAndView login(@RequestParam("loginname") String loginname,
+    public ModelAndView login(@RequestParam("username") String loginname,
                               @RequestParam("password") String password, @RequestParam("tip") int tip,
                               HttpSession session,
                               ModelAndView mv) {

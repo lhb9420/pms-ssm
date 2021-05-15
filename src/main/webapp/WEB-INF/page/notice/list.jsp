@@ -30,9 +30,6 @@
         <a>
           <cite>公告信息</cite></a>
       </span>
-    <button type="button" onclick="location.href='${ctx}/document/add'" class="layui-btn layui-btn-small"
-            style="line-height:1.6em;margin-top:3px;margin-left:75%;;"><i class="layui-icon"></i>增加
-    </button>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="${ctx }/notice/list"
        title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>

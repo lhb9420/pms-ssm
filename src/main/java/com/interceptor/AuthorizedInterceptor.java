@@ -73,7 +73,5 @@ public class AuthorizedInterceptor implements HandlerInterceptor {
 			}
 		}
 		return flag;
-
 	}
-
 }

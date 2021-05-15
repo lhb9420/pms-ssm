@@ -4,14 +4,12 @@ import com.domain.Notice;
 import com.domain.User;
 import com.service.RainService;
 import com.util.common.Constants;
+import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -64,10 +62,18 @@ public class NoticeController {
 			mv.setViewName("redirect:/notice/list");
 			return mv;
 		}
-		@RequestMapping(value="/notice/delete",method=RequestMethod.GET)
-		 public void delete(Integer id){
-			if(id!=null){
-				rainservice.delete_NoticeInfo(id);
-			}
+
+	@RequestMapping(value = "/notice/delete", method = RequestMethod.GET)
+	public void delete(Integer id) {
+		if (id != null) {
+			rainservice.delete_NoticeInfo(id);
 		}
+	}
+
+	@RequestMapping("/notice/table")
+	@ResponseBody
+	public Page<Notice> attendance_table() {
+		Page<Notice> date = rainservice.notice_list();
+		return date;
+	}
 }

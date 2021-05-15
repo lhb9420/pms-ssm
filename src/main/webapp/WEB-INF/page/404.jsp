@@ -124,6 +124,9 @@
     <div class="content">
         <h1 data-text="404">404</h1>
         <h4 data-text="Page not found">Opps! Page not found</h4>
+        <div class="btns">
+            <a onclick="window.history.go(-1)">return</a>
+        </div>
     </div>
 </div>
 </body>

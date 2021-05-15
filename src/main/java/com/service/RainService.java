@@ -132,4 +132,6 @@ public interface RainService {
     Page<EchartsCategoryData> attendance_analyse(String date);
 
     User get_UserByName(String loginname);
+
+    Page<Notice> notice_list();
 }

@@ -13,15 +13,25 @@ public class CommonController {
 //		String blank = "blank";
 //		return blank;
 	}
-	
-	@RequestMapping(value="/")
-	 public String index(){
+
+	@RequestMapping(value = "/")
+	public String index() {
 		String blank = "index";
 		return blank;
 	}
-	@RequestMapping(value="/welcome")
-	 public String welcome(){
-		String blank = "welcome";
-		return blank;
+
+	@RequestMapping(value = "/welcome3")
+	public String welcome3() {
+		return "welcome3";
+	}
+
+	@RequestMapping(value = "/welcome2")
+	public String welcome2() {
+		return "welcome2";
+	}
+
+	@RequestMapping(value = "/welcome1")
+	public String welcome1() {
+		return "welcome1";
 	}
 }

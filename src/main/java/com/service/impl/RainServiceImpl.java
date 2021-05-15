@@ -596,4 +596,13 @@ public class RainServiceImpl implements RainService {
     public User get_UserByName(String loginname) {
         return userdao.get_UserByName(loginname);
     }
+
+    @Override
+    public Page<Notice> notice_list() {
+        Page<Notice> p = new Page<>();
+        List<Notice> list = noticedao.get_List();
+        p.setCount(list.size());
+        p.setData(list);
+        return p;
+    }
 }
