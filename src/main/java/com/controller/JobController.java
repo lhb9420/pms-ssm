@@ -50,7 +50,6 @@ public class JobController {
 		}
 		@RequestMapping(value="/job/add",method=RequestMethod.POST)
 		 public ModelAndView add(ModelAndView mv,@ModelAttribute Job job ,Integer id){
-			System.out.println(id);
 			if(id!=null){
 				rainservice.update_JobInfo(job);
 			}else{
@@ -61,7 +60,6 @@ public class JobController {
 		}
 		@RequestMapping(value="/job/delete",method=RequestMethod.GET)
 		 public void delete(Integer id){
-			System.out.println(id);
 			if(id!=null){
 				rainservice.delete_JobInfo(id);
 			}

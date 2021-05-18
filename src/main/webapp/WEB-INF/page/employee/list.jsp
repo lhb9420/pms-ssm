@@ -82,8 +82,6 @@
             , limit: 5
             , limits: [5, 10, 20]
             , parseDate: function (reult) {
-
-
             }
             , cols: [[
                 {field: 'name', title: '姓名', width: 80, sort: true}

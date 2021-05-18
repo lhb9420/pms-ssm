@@ -47,7 +47,7 @@ public class SalaryController {
 
     @RequestMapping(value = "/salary/calculate", method = RequestMethod.POST)
     public ModelAndView add(ModelAndView mv, @ModelAttribute Salary salary) {
-        salary.setTotal(salary.getBase_salary() + salary.getOvertime_salary() + salary.getBonus());
+        salary.setTotal();
         salary.setEmployee_id(rainservice.get_EmployeeIdByName(salary.getName()).getId());
         rainservice.insert_SalaryInfo(salary);
         mv.setViewName("redirect:/salary/list");

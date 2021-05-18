@@ -80,7 +80,8 @@ public class Salary implements Serializable {
         return total;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setTotal() {
+
+        this.total = this.base_salary + this.bonus + this.overtime_salary;
     }
 }
