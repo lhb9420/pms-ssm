@@ -134,4 +134,6 @@ public interface RainService {
     User get_UserByName(String loginname);
 
     Page<Notice> notice_list();
+
+    Page<Attendance> attendance_list2(int page, int limit, String day);
 }

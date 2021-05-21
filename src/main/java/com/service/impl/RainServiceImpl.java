@@ -4,6 +4,8 @@ import com.dao.*;
 import com.domain.*;
 import com.service.RainService;
 import com.util.TimeGenerate;
+import com.util.accessExcetpion.AccessException;
+import com.util.common.Constants;
 import com.util.jsonClass.EchartsCategoryData;
 import com.util.jsonClass.EchartsPieData;
 import com.util.jsonClass.Page;
@@ -604,5 +606,10 @@ public class RainServiceImpl implements RainService {
         p.setCount(list.size());
         p.setData(list);
         return p;
+    }
+
+    @Override
+    public Page<Attendance> attendance_list2(int page, int limit, String day) {
+        throw new AccessException(Constants.ATTR_NAME_EXCEPTION);
     }
 }

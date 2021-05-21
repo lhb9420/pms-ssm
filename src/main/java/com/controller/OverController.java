@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.domain.Overtime;
+import com.domain.User;
 import com.service.RainService;
+import com.util.common.Constants;
 import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class OverController {
@@ -37,9 +41,23 @@ public class OverController {
         return "/overtime/list";
     }
 
+    @RequestMapping(value = "/overtime/list1", method = RequestMethod.GET)
+    public String index1() {
+        return "/overtime/list1";
+    }
+
     @RequestMapping("/overtime/table")
     @ResponseBody
     public Page<Overtime> attendance_table(int page, int limit, String day, String name) {
+        Page<Overtime> date = rainservice.overtime_list(page, limit, day, name);
+        return date;
+    }
+
+    @RequestMapping("/overtime/table1")
+    @ResponseBody
+    public Page<Overtime> attendance_table1(HttpSession session, int page, int limit, String day) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name = user.getUsername();
         Page<Overtime> date = rainservice.overtime_list(page, limit, day, name);
         return date;
     }

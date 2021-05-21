@@ -62,7 +62,7 @@
                 {checkbox: true, fixed: true}
                 , {field: 'name', title: '姓名', sort: true}
                 , {field: 'day', title: '加班时间', sort: true}
-                , {field: 'record1', title: '上班打开时间', sort: true}
+                , {field: 'record1', title: '上班打卡时间', sort: true}
                 , {field: 'record2', title: '下班打卡时间', sort: true}
             ]]
             , id: 'testReload'

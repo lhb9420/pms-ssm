@@ -5,6 +5,7 @@ import com.domain.Employee;
 import com.domain.Job;
 import com.domain.User;
 import com.service.RainService;
+import com.util.common.Constants;
 import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -36,13 +39,13 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/list", method = RequestMethod.GET)
-    public String index(Model model, String content) {
-        List<Employee> employee_list = rainservice.get_EmployeeList();
-        if (content != null) {
-            employee_list = rainservice.get_EmployeeLikeList(content);
-        }
-        model.addAttribute("list", employee_list);
+    public String index() {
         return "employee/list";
+    }
+
+    @RequestMapping(value = "/employee/list2", method = RequestMethod.GET)
+    public String index1() {
+        return "employee/list2";
     }
 
     @RequestMapping(value = "/employee/add", method = RequestMethod.GET)
@@ -90,6 +93,23 @@ public class EmployeeController {
     @ResponseBody
     public Page<Employee> attendance_table(int page, int limit, String userName) {
         Page<Employee> date = rainservice.employee_list(page, limit, userName);
+        return date;
+    }
+
+    @RequestMapping("/employee/table2")
+    @ResponseBody
+    public Page<Employee> attendance_table2(HttpSession session, int page, int limit, String userName) {
+        Page<Employee> date = rainservice.employee_list(page, limit, userName);
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        Integer dept_id = (rainservice.get_EmployeeInfo(user.getEmployee_id())).getDept_id();
+        List<Employee> temp = new ArrayList<>();
+        for (Employee employee : date.getData()) {
+            if (employee.getDept_id() == dept_id) {
+                temp.add(employee);
+            }
+        }
+        date.setCount(temp.size());
+        date.setData(temp);
         return date;
     }
 }

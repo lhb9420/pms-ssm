@@ -1,8 +1,6 @@
 package com.controller;
 
 import com.domain.Leave;
-import com.domain.Notice;
-import com.domain.Salary;
 import com.domain.User;
 import com.service.RainService;
 import com.util.common.Constants;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -49,27 +46,42 @@ public class LeaveController {
         model.addAttribute("list", leave_list);
         return "/leave/list";
     }
-    @RequestMapping(value="/leave/enable",method=RequestMethod.GET)
-    public void enable(Integer leave_id){
-        if(leave_id!=null){
+
+    @RequestMapping(value = "/leave/list1", method = RequestMethod.GET)
+    public String index1(HttpSession session, Model model) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name = user.getUsername();
+        List<Leave> leave_list = rainservice.get_LeaveLikeList(name);
+        model.addAttribute("list", leave_list);
+        return "/leave/list1";
+    }
+
+    @RequestMapping(value = "/leave/enable", method = RequestMethod.GET)
+    public void enable(Integer leave_id) {
+        if (leave_id != null) {
             rainservice.enable_Leave(leave_id);
         }
     }
-    @RequestMapping(value="/leave/add",method=RequestMethod.GET)
-    public String add(Model model){
-            Leave leave=new Leave();
-            model.addAttribute("leave",leave);
+
+    @RequestMapping(value = "/leave/add", method = RequestMethod.GET)
+    public String add(Model model) {
+        Leave leave = new Leave();
+        model.addAttribute("leave", leave);
         return "/leave/add";
     }
 
-    @RequestMapping(value="/leave/add",method=RequestMethod.POST)
-    public ModelAndView add(ModelAndView mv, @ModelAttribute Leave leave, HttpSession session){
+    @RequestMapping(value = "/leave/add", method = RequestMethod.POST)
+    public ModelAndView add(ModelAndView mv, @ModelAttribute Leave leave, HttpSession session) {
         User user = (User) session.getAttribute(Constants.USER_SESSION);
         leave.setEmployee_id(user.getId());
         leave.setName(user.getUsername());
         leave.setEnable(false);
         rainservice.insert_leave(leave);
-        mv.setViewName("redirect:/leave/list");
+        if (new Integer((Integer) session.getAttribute("tip")) == 3) {
+            mv.setViewName("redirect:/leave/list");
+        } else {
+            mv.setViewName("redirect:/leave/list1");
+        }
         return mv;
     }
 }

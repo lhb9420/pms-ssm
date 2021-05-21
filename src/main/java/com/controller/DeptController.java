@@ -1,7 +1,9 @@
 package com.controller;
 
 import com.domain.Dept;
+import com.domain.User;
 import com.service.RainService;
+import com.util.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -45,6 +48,15 @@ public class DeptController {
         return "dept/list";
     }
 
+    @RequestMapping(value = "/dept/list2", method = RequestMethod.GET)
+    public String index1(HttpSession session, Model model) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String content = (rainservice.get_Info((rainservice.get_EmployeeInfo(user.getEmployee_id())).getDept_id())).getName();
+        List<Dept> dept_list = rainservice.findAllDept(content);
+        model.addAttribute("list", dept_list);
+        return "dept/list2";
+    }
+
     @RequestMapping(value = "/dept/add", method = RequestMethod.GET)
     public String add(Model model, Integer id) {
         if (id != null) {
@@ -55,13 +67,17 @@ public class DeptController {
     }
 
     @RequestMapping(value = "/dept/add", method = RequestMethod.POST)
-    public ModelAndView add(ModelAndView mv, @ModelAttribute Dept dept, Integer id) {
+    public ModelAndView add(ModelAndView mv, @ModelAttribute Dept dept, Integer id, HttpSession session) {
         if (id != null) {
             rainservice.update_Info(dept);
         } else {
             rainservice.addDept(dept);
         }
-        mv.setViewName("redirect:/dept/list");
+        if (new Integer((Integer) session.getAttribute("tip")) == 3) {
+            mv.setViewName("redirect:/dept/list");
+        } else {
+            mv.setViewName("dept/list2");
+        }
         return mv;
     }
 

@@ -2,7 +2,9 @@ package com.controller;
 
 import com.domain.Employee;
 import com.domain.Salary;
+import com.domain.User;
 import com.service.RainService;
+import com.util.common.Constants;
 import com.util.jsonClass.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -38,6 +41,11 @@ public class SalaryController {
         return "/salary/list";
     }
 
+    @RequestMapping(value = "/salary/list1", method = RequestMethod.GET)
+    public String index1() {
+        return "/salary/list1";
+    }
+
     @RequestMapping(value = "/salary/calculate", method = RequestMethod.GET)
     public String Calculate(Model model) {
         List<Employee> employee = rainservice.get_EmployeeList();
@@ -61,8 +69,17 @@ public class SalaryController {
         return date;
     }
 
+    @RequestMapping("/salary/table1")
+    @ResponseBody
+    public Page<Salary> salary_table1(HttpSession session, int page, int limit) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String userName = user.getUsername();
+        Page<Salary> date = rainservice.salary_list(page, limit, userName);
+        return date;
+    }
+
     @RequestMapping("/salary/delete")
-    public void delete(Integer salary_id){
+    public void delete(Integer salary_id) {
         rainservice.delete_salary(salary_id);
     }
 }

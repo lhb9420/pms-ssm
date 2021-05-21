@@ -45,4 +45,5 @@ public interface AttendanceDao {
 
     @Select("select * from " + ATTENDENCETABLE + "  where name like CONCAT('%',#{name},'%') and  day like CONCAT('%',#{day},'%')")
     List<Attendance> get_NameDayLikeList(@Param("name") String name, @Param("day") String day);
+
 }
