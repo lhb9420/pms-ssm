@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -127,8 +128,18 @@ public class AttendanceController {
 
     @RequestMapping("/attendance/table2")
     @ResponseBody
-    public Page<Attendance> attendance_table2(HttpSession session, int page, int limit, String day) {
-        Page<Attendance> date = rainservice.attendance_list2(page, limit, day);
+    public Page<Attendance> attendance_table2(HttpSession session, int page, String day) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name = user.getUsername();
+        Page<Attendance> date = rainservice.attendance_list(page, Integer.MAX_VALUE, day, null);
+        List<Attendance> temp = new ArrayList<>();
+        for (Attendance a : date.getData()) {
+            if ((rainservice.get_EmployeeIdByName(a.getName())).getDept_id() == (rainservice.get_EmployeeIdByName(name)).getDept_id()) {
+                temp.add(a);
+            }
+        }
+        date.setCount(temp.size());
+        date.setData(temp);
         return date;
     }
 

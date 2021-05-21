@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class OverController {
@@ -46,6 +48,11 @@ public class OverController {
         return "/overtime/list1";
     }
 
+    @RequestMapping(value = "/overtime/list2", method = RequestMethod.GET)
+    public String index2() {
+        return "/overtime/list2";
+    }
+
     @RequestMapping("/overtime/table")
     @ResponseBody
     public Page<Overtime> attendance_table(int page, int limit, String day, String name) {
@@ -59,6 +66,23 @@ public class OverController {
         User user = (User) session.getAttribute(Constants.USER_SESSION);
         String name = user.getUsername();
         Page<Overtime> date = rainservice.overtime_list(page, limit, day, name);
+        return date;
+    }
+
+    @RequestMapping("/overtime/table2")
+    @ResponseBody
+    public Page<Overtime> attendance_table2(HttpSession session, int page, String day) {
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name = user.getUsername();
+        Page<Overtime> date = rainservice.overtime_list(page, Integer.MAX_VALUE, day, null);
+        List<Overtime> temp = new ArrayList<>();
+        for (Overtime a : date.getData()) {
+            if ((rainservice.get_EmployeeIdByName(a.getName())).getDept_id() == (rainservice.get_EmployeeIdByName(name)).getDept_id()) {
+                temp.add(a);
+            }
+        }
+        date.setCount(temp.size());
+        date.setData(temp);
         return date;
     }
 }

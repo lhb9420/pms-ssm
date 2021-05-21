@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,6 +46,24 @@ public class LeaveController {
         }
         model.addAttribute("list", leave_list);
         return "/leave/list";
+    }
+
+    @RequestMapping(value = "/leave/list2", method = RequestMethod.GET)
+    public String index1(HttpSession session, Model model, String content) {
+        List<Leave> leave_list = rainservice.get_LeaveList();
+        if (content != null) {
+            leave_list = rainservice.get_LeaveLikeList(content);
+        }
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name = user.getUsername();
+        List<Leave> temp = new ArrayList<>();
+        for (Leave a : leave_list) {
+            if ((rainservice.get_EmployeeIdByName(a.getName())).getDept_id() == (rainservice.get_EmployeeIdByName(name)).getDept_id()) {
+                temp.add(a);
+            }
+        }
+        model.addAttribute("list", temp);
+        return "/leave/list2";
     }
 
     @RequestMapping(value = "/leave/list1", method = RequestMethod.GET)

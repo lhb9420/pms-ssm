@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -46,6 +47,11 @@ public class SalaryController {
         return "/salary/list1";
     }
 
+    @RequestMapping(value = "/salary/list2", method = RequestMethod.GET)
+    public String index2() {
+        return "/salary/list2";
+    }
+
     @RequestMapping(value = "/salary/calculate", method = RequestMethod.GET)
     public String Calculate(Model model) {
         List<Employee> employee = rainservice.get_EmployeeList();
@@ -75,6 +81,23 @@ public class SalaryController {
         User user = (User) session.getAttribute(Constants.USER_SESSION);
         String userName = user.getUsername();
         Page<Salary> date = rainservice.salary_list(page, limit, userName);
+        return date;
+    }
+
+    @RequestMapping("/salary/table2")
+    @ResponseBody
+    public Page<Salary> salary_table2(HttpSession session, int page, String userName) {
+        Page<Salary> date = rainservice.salary_list(page, Integer.MAX_VALUE, userName);
+        User user = (User) session.getAttribute(Constants.USER_SESSION);
+        String name = user.getUsername();
+        List<Salary> temp = new ArrayList<>();
+        for (Salary a : date.getData()) {
+            if ((rainservice.get_EmployeeIdByName(a.getName())).getDept_id() == (rainservice.get_EmployeeIdByName(name)).getDept_id()) {
+                temp.add(a);
+            }
+        }
+        date.setCount(temp.size());
+        date.setData(temp);
         return date;
     }
 
