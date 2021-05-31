@@ -12,19 +12,14 @@ import java.io.IOException;
 public class ExceptionResolver {
     @ExceptionHandler(value = AccessException.class)
     public ModelAndView resolveMathException(AccessException exception) throws IOException {
-
         String viewName = "401";
-
         return commonResolve(viewName, exception);
     }
 
     private ModelAndView commonResolve(String viewName, Exception exception) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.addObject(Constants.ATTR_NAME_EXCEPTION, exception);
-
         modelAndView.setViewName(viewName);
-
         return modelAndView;
     }
 }
